@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="test">
+    <div id="val"></div>
+    <!-- <div id="div1">123123</div> -->
+    <script>
+        const test = document.getElementById('test');
+        const valNode = document.getElementById('val');
+        const obj = {
+            value: 0
+        }
+        test.value = obj.value;
+        valNode.innerHTML = obj.value;
+        // Object.defineProperties(obj, {
+        //     value: {
+        //         get () {
+        //             return this.value;
+        //         },
+        //         set (val) {
+        //             test.value = val;
+        //             valNode.innerHTML = val;
+        //         }
+        //     }
+        // })
+        Object.defineProperty(obj, 'value', {
+            get () {
+                return this.value;
+            },
+            set (val) {
+                test.value = val;
+                valNode.innerHTML = val;
+            }
+        })
+        document.addEventListener('keyup', function(e) {
+            obj.value = test.value;
+        })
+    </script>
+    <script>
+        // // 惰性函数
+        // var addEvent = function( elem, type, handler ){
+        //     if ( window.addEventListener ){
+        //         addEvent = function( elem, type, handler ){
+        //             elem.addEventListener( type, handler, false );
+        //         }
+        //     }else if ( window.attachEvent ){
+        //         addEvent = function( elem, type, handler ){
+        //             elem.attachEvent( 'on' + type, handler );
+        //         }
+        //     }
+        //     addEvent( elem, type, handler );
+        // };
+        // var div = document.getElementById( 'div1' );
+
+        // addEvent( div, 'click', function(){
+        //     alert (1);
+        // });
+
+        // addEvent( div, 'click', function(){
+        //     alert (2);
+        // });
+        
+    </script>
+    <div id="parent">
+        <button id="child">test</button>
+    </div>
+    <script>
+        document.getElementsByTagName('body')[0].addEventListener('click', function() {
+            // 冒泡阶段
+            console.log(333)
+        }, {capture: false})
+        document.getElementById('parent').addEventListener('click', function() {
+            // 冒泡阶段
+            console.log(111)
+        }, {capture: false}) 
+        document.getElementById('child').addEventListener('click', function() {
+            // 冒泡
+            console.log(222)
+        }, {capture: false})
+    </script>
+    <div>
+        <button id="once">一次事件</button>
+    </div>
+    <script>
+        document.getElementById('once').addEventListener('click', function() {
+            alert(111)
+        }, {
+            once: true
+        })
+    </script>
+</body>
+</html>

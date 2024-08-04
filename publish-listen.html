@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="count">点</button>
+    <div id="show"></div>
+    <script>
+        var Event = (function () {
+
+            var clientList = {},
+                listen,
+                trigger,
+                remove;
+
+            listen = function (key, fn) {
+                if (!clientList[key]) {
+                    clientList[key] = [];
+                }
+                clientList[key].push(fn);
+            };
+
+            trigger = function () {
+                var key = Array.prototype.shift.call(arguments),
+                    fns = clientList[key];
+                if (!fns || fns.length === 0) {
+                    return false;
+                }
+                for (var i = 0, fn; fn = fns[i++];) {
+                    fn.apply(this, arguments);
+                }
+
+            };
+
+            remove = function (key, fn) {
+                var fns = clientList[key];
+                if (!fns) {
+                    return false;
+                }
+                if (!fn) {
+                    fns && (fns.length = 0);
+                } else {
+                    for (var l = fns.length - 1; l >= 0; l--) {
+                        var _fn = fns[l];
+                        if (_fn === fn) {
+                            fns.splice(l, 1);
+                        }
+                    }
+                }
+            };
+
+            return {
+                listen: listen,
+                trigger: trigger,
+                remove: remove
+            }
+
+        })();
+    </script>
+    <script>
+        let a = function() {
+            var count = 0;
+            let button = document.getElementById('count');
+            button.onclick = function() {
+                Event.trigger('add', count++)
+            }
+        }()
+        let b = function() {
+            let show = document.getElementById('show');
+            Event.listen('add', function(count) {
+                show.innerText = count;
+            })
+        }()
+    </script>
+</body>
+
+</html>

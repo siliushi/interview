@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // Diff算法
+        class VNode {
+            constructor(tag, props = {}, children = []) {
+                this.tag = tag; // 标签名
+                this.props = props; // 属性
+                this.children = children; // 子节点
+            }
+        }
+
+        function diff(oldVNode, newVNode) {
+            // 如果新的节点不存在，直接返回删除操作
+            if (!newVNode) {
+                return { type: 'REMOVE' };
+            }
+
+            // 如果旧的节点不存在，直接返回新增操作
+            if (!oldVNode) {
+                return { type: 'ADD', vnode: newVNode };
+            }
+
+            // 如果节点类型不同，返回替换操作
+            if (oldVNode.tag !== newVNode.tag) {
+                return { type: 'REPLACE', vnode: newVNode };
+            }
+
+            // 如果节点是文本节点，比较文本内容
+            if (typeof oldVNode === 'string' || typeof newVNode === 'string') {
+                if (oldVNode !== newVNode) {
+                    return { type: 'TEXT', text: newVNode };
+                } else {
+                    return { type: 'NO_CHANGE' };
+                }
+            }
+
+            // 节点类型相同，比较属性和子节点
+            const patch = { type: 'UPDATE', props: [], children: [] };
+
+            // 比较属性
+            const allProps = { ...oldVNode.props, ...newVNode.props };
+            for (const key in allProps) {
+                if (oldVNode.props[key] !== newVNode.props[key]) {
+                    patch.props.push({ key, value: newVNode.props[key] });
+                }
+            }
+
+            // 比较子节点
+            const oldChildren = oldVNode.children || [];
+            const newChildren = newVNode.children || [];
+            const maxLength = Math.max(oldChildren.length, newChildren.length);
+            for (let i = 0; i < maxLength; i++) {
+                patch.children.push(diff(oldChildren[i], newChildren[i]));
+            }
+
+            return patch;
+        }
+
+        function applyPatch(node, patch) {
+            switch (patch.type) {
+                case 'REMOVE':
+                    node.remove();
+                    break;
+                case 'ADD':
+                    node.appendChild(createElement(patch.vnode));
+                    break;
+                case 'REPLACE':
+                    node.replaceWith(createElement(patch.vnode));
+                    break;
+                case 'TEXT':
+                    node.textContent = patch.text;
+                    break;
+                case 'UPDATE':
+                    patch.props.forEach(propPatch => {
+                        if (propPatch.value) {
+                            node.setAttribute(propPatch.key, propPatch.value);
+                        } else {
+                            node.removeAttribute(propPatch.key);
+                        }
+                    });
+                    patch.children.forEach((childPatch, i) => {
+                        if (childPatch) {
+                            if (node.childNodes[i]) {
+                                applyPatch(node.childNodes[i], childPatch);
+                            } else {
+                                node.appendChild(createElement(childPatch.vnode));
+                            }
+                        }
+                    });
+                    break;
+                case 'NO_CHANGE':
+                    // Do nothing if there's no change
+                    break;
+            }
+        }
+
+        function createElement(vnode) {
+            if (!vnode) return null;
+            if (typeof vnode === 'string') {
+                return document.createTextNode(vnode);
+            }
+            const el = document.createElement(vnode.tag);
+            for (const key in vnode.props) {
+                el.setAttribute(key, vnode.props[key]);
+            }
+            vnode.children.forEach(child => {
+                el.appendChild(createElement(child));
+            });
+            return el;
+        }
+
+        // 创建初始虚拟DOM
+        const oldVNode = new VNode('div', { id: 'container' }, [
+            new VNode('h1', { style: 'color: blue' }, ['Hello']),
+            new VNode('p', {}, ['This is a paragraph.']),
+        ]);
+
+        // 创建新的虚拟DOM
+        const newVNode = new VNode('div', { id: 'container' }, [
+            new VNode('h1', { style: 'color: red' }, ['Hello, World!']),
+            new VNode('p', {}, ['This is a new paragraph.']),
+            new VNode('span', {}, ['This is a new element.']),
+        ]);
+
+        // diff两个虚拟DOM
+        const patch = diff(oldVNode, newVNode);
+
+        // 应用补丁
+        const root = document.getElementById('root');
+        const initialDOM = createElement(oldVNode);
+        root.appendChild(initialDOM);
+        applyPatch(initialDOM, patch);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            width: 200px;
+            border: 1px solid #000;
+            margin-bottom: 20px;
+        }
+        .break-all {
+            word-break: break-all;
+        }
+        .break-word {
+            word-break: break-word;
+        }
+        .overflow-break-word {
+            overflow-wrap: break-word;
+        }
+        .white-space-normal {
+            white-space: normal;
+        }
+        .pre-wrap {
+            white-space: pre-wrap;
+        }
+    </style>
+    <title>CSS Word Break</title>
+</head>
+<body>
+    <div class="container break-all">
+        Thisisaverylongwordthatwillbreakanywherewhennecessary.
+    </div>
+    <div class="container break-word">
+        Thisisaverylongwordthatwillbreakatappropriateplaceswhennecessary.
+    </div>
+    <div class="container overflow-break-word">
+        Thisisaverylongwordthatwillbreakatappropriateplaceswhennecessary.
+    </div>
+    <div class="container white-space-normal">
+        This is a very long word that will break at white spaces.
+    </div>
+    <div class="container pre-wrap">
+        This    is     a     very     long     word     that     will     keep     white     spaces.
+    </div>
+    <script src="version.js"></script>
+</body>
+</html>
+<!-- 使用 word-break 属性
+word-break: break-all;
+允许在单词的任何地方换行。这意味着即使在单词的中间也会换行。
+
+css
+复制代码
+.break-all {
+    word-break: break-all;
+}
+word-break: break-word;
+允许在必要的地方换行，但不会在单词的中间换行。适用于兼容性较好的现代浏览器。
+
+css
+复制代码
+.break-word {
+    word-break: break-word;
+}
+使用 overflow-wrap 属性
+overflow-wrap: break-word;
+在需要时对长单词进行换行，防止内容溢出容器。
+
+css
+复制代码
+.overflow-break-word {
+    overflow-wrap: break-word;
+}
+使用 white-space 属性
+white-space: normal;
+默认值。文本会在空白字符处换行，不会保留多余的空白。
+
+css
+复制代码
+.white-space-normal {
+    white-space: normal;
+}
+white-space: pre-wrap;
+保留空白字符并且在必要时换行。
+
+css
+复制代码
+.pre-wrap {
+    white-space: pre-wrap;
+} -->

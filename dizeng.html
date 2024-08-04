@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="step" type="text">
+    <div id="result"></div>
+    <script>
+        const step = document.getElementById('step');
+        const result = document.getElementById('result');
+        let timer;
+        let val = 0;
+        function setStep(stepValue = 1) {
+            timer && clearInterval(timer)
+            timer = setInterval(() => {
+                val += stepValue;
+                result.innerText = val;
+            }, 1000)
+        }
+        setStep();
+        step.addEventListener('blur', function(e) {
+            setStep(+e.target.value)
+        })
+    </script>
+</body>
+</html>
