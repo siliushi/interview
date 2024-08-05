@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <input type="text" id="test">
     <div id="val"></div>
@@ -29,15 +31,15 @@
         //     }
         // })
         Object.defineProperty(obj, 'value', {
-            get () {
+            get() {
                 return this.value;
             },
-            set (val) {
+            set(val) {
                 test.value = val;
                 valNode.innerHTML = val;
             }
         })
-        document.addEventListener('keyup', function(e) {
+        document.addEventListener('keyup', function (e) {
             obj.value = test.value;
         })
     </script>
@@ -64,34 +66,58 @@
         // addEvent( div, 'click', function(){
         //     alert (2);
         // });
-        
+
     </script>
     <div id="parent">
         <button id="child">test</button>
     </div>
     <script>
-        document.getElementsByTagName('body')[0].addEventListener('click', function() {
+        document.getElementsByTagName('body')[0].addEventListener('click', function () {
             // 冒泡阶段
             console.log(333)
-        }, {capture: false})
-        document.getElementById('parent').addEventListener('click', function() {
+        }, { capture: false })
+        document.getElementById('parent').addEventListener('click', function () {
             // 冒泡阶段
             console.log(111)
-        }, {capture: false}) 
-        document.getElementById('child').addEventListener('click', function() {
+        }, { capture: false })
+        document.getElementById('child').addEventListener('click', function () {
             // 冒泡
             console.log(222)
-        }, {capture: false})
+        }, { capture: false })
     </script>
     <div>
         <button id="once">一次事件</button>
     </div>
     <script>
-        document.getElementById('once').addEventListener('click', function() {
+        document.getElementById('once').addEventListener('click', function () {
             alert(111)
         }, {
             once: true
         })
     </script>
+    <div id="myRandText"></div>
+    <script>
+        globalThis.genRandomNumbers = () => {
+            const array = new Uint32Array(1);
+            globalThis.crypto.getRandomValues(array);
+
+            const randText = document.getElementById("myRandText");
+            randText.innerHTML = `随机数为：${array.join(" ")} <br> UUID: ${globalThis.crypto.randomUUID()}`;
+        };
+        genRandomNumbers();
+        var db;
+        function openDB() {
+            var DBOpenRequest = window.indexedDB.open("toDoList");
+            DBOpenRequest.onsuccess = function (e) {
+                db = DBOpenRequest.result;
+                console.log(db)
+            };
+            DBOpenRequest.onerror = function(e) {
+                console.log(e)
+            }
+        }
+        openDB()
+    </script>
 </body>
+
 </html>

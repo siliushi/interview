@@ -1824,6 +1824,88 @@ function Graph() {
 }
 
 
+// 堆 heap
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    getParentIndex(index) {
+        return Math.floor((index - 1) / 2);
+    }
+
+    getLeftChildIndex(index) {
+        return 2 * index + 1;
+    }
+
+    getRightChildIndex(index) {
+        return 2 * index + 2;
+    }
+
+    swap(index1, index2) {
+        [this.heap[index1], this.heap[index2]] = [this.heap[index2], this.heap[index1]];
+    }
+
+    insert(value) {
+        this.heap.push(value);
+        this.heapifyUp();
+    }
+
+    heapifyUp() {
+        let index = this.heap.length - 1;
+        while (this.getParentIndex(index) >= 0 && this.heap[this.getParentIndex(index)] > this.heap[index]) {
+            this.swap(index, this.getParentIndex(index));
+            index = this.getParentIndex(index);
+        }
+    }
+
+    remove() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+
+        const root = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.heapifyDown();
+        return root;
+    }
+
+    heapifyDown() {
+        let index = 0;
+        while (this.getLeftChildIndex(index) < this.heap.length) {
+            let smallerChildIndex = this.getLeftChildIndex(index);
+            if (this.getRightChildIndex(index) < this.heap.length && this.heap[this.getRightChildIndex(index)] < this.heap[smallerChildIndex]) {
+                smallerChildIndex = this.getRightChildIndex(index);
+            }
+            if (this.heap[index] <= this.heap[smallerChildIndex]) break;
+            this.swap(index, smallerChildIndex);
+            index = smallerChildIndex;
+        }
+    }
+
+    peek() {
+        if (this.heap.length === 0) return null;
+        return this.heap[0];
+    }
+
+    size() {
+        return this.heap.length;
+    }
+}
+
+// 测试
+const minHeap = new MinHeap();
+minHeap.insert(10);
+minHeap.insert(5);
+minHeap.insert(3);
+minHeap.insert(8);
+minHeap.insert(2);
+
+console.log(minHeap.peek()); // 输出2
+console.log(minHeap.remove()); // 输出2
+console.log(minHeap.peek()); // 输出3
+
+
+
 // 高级算法
 // 动态规划有时被认为是一种与递归相反的技术。递归是从顶部开始将问题分解，通过解决掉所有分解出小问题的方式，来解决整个问题。
 // 动态规划解决方案从底部开始解决问题，将所有小问题解决掉，然后合并成一个整体解决方案，从而解决掉整个大问题。
@@ -2189,6 +2271,8 @@ const values = [4, 5, 10, 11, 13];
 const capacity = 15;
 const maxValue = fractionalKnapsack(weights, values, capacity);
 console.log(`分数背包的最大价值是: ${maxValue}`);
+
+
 
 
 
