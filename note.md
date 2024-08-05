@@ -3,6 +3,14 @@ https://react.iamkasong.com/
 https://pomb.us/build-your-own-react/
 
 
+
+setTimeout 延迟加载 （使用不当可能适得其反）
+web worker 多线程 （不能操作dom，主要计算密集型的任务）
+requestIdleCallback 帧空闲时运行 （react18带🔥的，低优先级任务）
+requestAnimationFrame 每帧都会运行 （主要做动画效果调优）
+
+
+
 https://juejin.cn/post/7181356579709517861
 
 schedule 调度 scheduler 小顶堆数据结构

@@ -1,0 +1,1 @@
+export default function exportTest () {console.log(1111)};
