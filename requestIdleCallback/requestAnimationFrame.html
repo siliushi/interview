@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<div id="box" style="height: 20px; width: 20px; background-color: blue;position: relative;"></div>
+		<script>
+			const box = document.querySelector('#box');
+			let position = 0; // 初始位置
+			const speed = 20; // 平移速度（每次移动的像素数）
+			
+			function animate() {
+				// 更新位置
+				position += speed;
+				// 将位置应用到元素的样式
+				box.style.left = position + 'px';
+				if (position < 500) {
+					window.requestAnimationFrame(animate)
+				}
+			}
+			// setInterval(animate,16)
+			window.requestAnimationFrame(animate)
+		</script>
+	</body>
+</html>

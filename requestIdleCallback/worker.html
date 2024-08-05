@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<span>js耗时任务测试</span>
+		<script>
+		const worker=new Worker('worker.js');
+		worker.onmessage=function(event){
+			const result=event.data;
+			console.log(result)
+		}
+		worker.postMessage(15000)
+		</script>
+		<button onclick="worker.postMessage(15000)"> 执行耗时任务 </button>
+		<button onclick="javascript:console.log('click event')"> click </button>
+	</body>
+</html>

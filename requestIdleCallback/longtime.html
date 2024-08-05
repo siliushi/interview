@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<span>js耗时任务测试</span>
+		<script>
+			// 计算任务耗时毫秒数
+			function processTaskTime(callback, ...args) {
+				const startTime = new Date().valueOf();
+				callback(...args);
+				let endTime = new Date().valueOf();
+				const processTime = endTime - startTime;
+				console.log(`%c 执行 ${callback.name}(${args}) 消耗时间：` + processTime + '毫秒', 'color:green')
+				return processTime;
+			}
+
+			// 双重遍历，计算求和 耗时任务
+			function sumLoop(start, end) {
+				let sum = 0
+				for (let i = start; i < end; i++) {
+					for (let j = start; j < end; j++) {
+						tmp = sum;
+						sum = tmp + i + j
+					}
+				}
+				console.log(`从${start}到${end}自相相加和为：` + sum)
+				return sum
+			}
+            
+			// processTaskTime(sumLoop, 0, 15000)
+
+            setTimeout(processTaskTime(sumLoop, 0, 15000), 100)
+		</script>
+		<button onclick="processTaskTime(sumLoop,0,15000)"> 执行耗时任务 </button>
+		<button onclick="javascript:console.log('click event')"> click </button>
+	</body>
+</html>
