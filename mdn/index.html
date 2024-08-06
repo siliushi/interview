@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="myRandText"></div>
+    <script>
+        // globalThis === window   web environment
+        // globalThis === global   node.js
+        // globalThis === self     webworker  WorkerGolbalScope
+        globalThis.genRandomNumbers = () => {
+            // crypto
+            const array = new Uint32Array(1);
+            globalThis.crypto.getRandomValues(array);
+
+            const randText = document.getElementById("myRandText");
+            randText.innerHTML = `随机数为：${array.join(" ")} <br> UUID: ${globalThis.crypto.randomUUID()}`;
+        };
+        genRandomNumbers();
+
+        window.caches.open("v1").then((cache) => {
+            // caches提供了诸如存储用于离线使用的资源，并生成对请求的自定义响应等功能。
+            return cache.match("/list");
+        });
+    </script>
+</body>
+</html>
