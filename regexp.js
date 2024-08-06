@@ -89,7 +89,6 @@ console.log( string.match(regex) );
 
 // 匹配时间
 var regex = /([01][0-9]|[2][0-3]):[0-5][0-9]/
-
 console.log( regex.test("23:59") );
 console.log( regex.test("02:07") );
 
