@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <div id="myRandText"></div>
     <script>
@@ -33,6 +35,34 @@
 
         // const objectURL = URL.createObjectURL(blob || file);
         // URL.revokeObjectURL(objectURL);
+
+
+        // getComputedStyle
+        // getSelection
+        // alert(window.prompt())
+
+        // 设别方向切换时触发
+        window.addEventListener("orientationchange", function () {
+            console.log(
+                "the orientation of the device is now " + screen.orientation.angle,
+            );
+        });
+
+        // 前进后退
+        window.addEventListener("pagehide", (event) => {
+            console.log('pagehide')
+        });
+        window.addEventListener('pageshow', function(event) {
+            // 会在 onload 事件触发后初始化页面时触发
+            console.log('after , pageshow :',event);
+        });
+
+        // 监听切换tab，visibilitychange
+        document.addEventListener('visibilitychange', () => {
+            console.log(document.hidden)
+            console.log(document.visibilityState)
+        })
     </script>
 </body>
+
 </html>
