@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="test"></canvas>
+    <script>
+        let test = document.getElementById('test');
+        let ctx = test.getContext('2d')
+        let width = 200;
+        let height = 200;
+        // style
+        test.style.width = width + 'px';
+        test.style.height = height + 'px';
+
+        const ratio = globalThis.devicePixelRatio;
+        // canvas
+        test.width = Math.floor(width * ratio);
+        test.height = Math.floor(height * ratio);
+        // context
+        ctx.scale(ratio, ratio)
+    </script>
+</body>
+</html>

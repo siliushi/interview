@@ -27,6 +27,9 @@ hooks 代数效应
 event loop
 message channel 宏任务 微任务
 
+实现一个router
+宏任务 微任务
+
 https://share.weiyun.com/CTt8HYKc 密码：254jp6
 https://blog.csdn.net/musio777/article/details/135964396
 

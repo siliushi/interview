@@ -25,6 +25,14 @@
             // caches提供了诸如存储用于离线使用的资源，并生成对请求的自定义响应等功能。
             return cache.match("/list");
         });
+
+
+        // url
+        const params = new URL(location.href).searchParams;
+        // console.log(params.get('a'))
+
+        // const objectURL = URL.createObjectURL(blob || file);
+        // URL.revokeObjectURL(objectURL);
     </script>
 </body>
 </html>
