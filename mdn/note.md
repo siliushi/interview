@@ -7,8 +7,15 @@ setImmediate 的执行优先级比 setTimeout 高，因为它是在当前事件�
 
 offline浏览器失去网络连接时
 online
-pagehide
+pagehide 浏览器前进后退
 pageshow
+visibilitychange
+
+addEventListener
+removeEventListener
+event = new Event('click')
+dispatchEvent(event)
+fireEvent
 
 
 python3 -m http.server port

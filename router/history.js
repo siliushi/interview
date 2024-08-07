@@ -1,3 +1,15 @@
+// 使用 pushState 和 popstate 事件来管理浏览器历史记录和URL。
+
+// 导航和历史记录管理：
+// 使用 history.pushState 方法来改变浏览器的 URL，而不会触发页面刷新。
+// popstate 事件监听器在用户点击浏览器的前进或后退按钮时触发，并加载相应的路由。
+// 拦截链接点击：
+// 使用事件委托机制，通过 data-link 属性识别并拦截导航链接的点击事件，调用自定义的 navigateTo 方法进行导航。
+// 初始路由加载：
+// 在路由器的构造函数中调用 loadInitialRoute 方法，根据当前的 location.pathname 加载适当的路由。
+// 匹配路由：
+// 简单的路由匹配函数 matchUrlToRoute，将路径与定义的路由进行比较。
+
 class Router {
     constructor(routes) {
         this.routes = routes;

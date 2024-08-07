@@ -1,3 +1,9 @@
+React源码
+Vue3
+webgl
+低码
+数据存储字节
+
 react源码   React源码深度解析：从理念到架构，从架构到实现，从实现到具体代码。
 https://react.iamkasong.com/
 https://pomb.us/build-your-own-react/
@@ -27,8 +33,34 @@ hooks 代数效应
 event loop
 message channel 宏任务 微任务
 
-实现一个router
-宏任务 微任务
+
+
+
+宏任务 微任务 同步任务先执行然后才是宏微任务
+宏任务（Macrotask）较大的任务，通常是由宿主环境（如浏览器或Node.js）发起的
+宏任务包括：
+    setTimeout
+    setInterval
+    setImmediate（Node.js 特有）
+    I/O 操作
+    UI rendering
+宏任务队列中的任务是按顺序执行的。一个宏任务执行完毕后，事件循环会检查是否有微任务需要执行，如果有，则会先执行所有的微任务，然后再继续执行下一个宏任务。
+
+微任务（Microtask）较小的任务，通常是在当前执行上下文结束后立即执行的。
+微任务包括：
+    Promise 的回调函数
+    process.nextTick（Node.js 特有）
+    MutationObserver
+微任务队列中的任务也按顺序执行，但它们的执行优先级高于宏任务。也就是说，在当前的宏任务执行完后，事件循环会先处理所有的微任务，然后再处理下一个宏任务。
+
+事件循环（Event Loop）
+事件循环是JavaScript运行时的核心机制，它负责调度和执行任务。其基本过程如下：
+从宏任务队列中取出第一个任务并执行。
+检查并执行所有的微任务，直到微任务队列为空。
+渲染UI（如果需要）。
+重复上述步骤。
+
+
 
 https://share.weiyun.com/CTt8HYKc 密码：254jp6
 https://blog.csdn.net/musio777/article/details/135964396
