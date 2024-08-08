@@ -17,5 +17,7 @@ event = new Event('click')
 dispatchEvent(event)
 fireEvent
 
+orientationchange
+visibilitychange
 
 python3 -m http.server port

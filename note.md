@@ -3,37 +3,8 @@ Vue3
 webgl
 低码
 数据存储字节
-
-react源码   React源码深度解析：从理念到架构，从架构到实现，从实现到具体代码。
-https://react.iamkasong.com/
-https://pomb.us/build-your-own-react/
-
-
-
-setTimeout 延迟加载 （使用不当可能适得其反）
-web worker 多线程 （不能操作dom，主要计算密集型的任务）
-requestIdleCallback 帧空闲时运行 （react18带🔥的，低优先级任务）
-requestAnimationFrame 每帧都会运行 （主要做动画效果调优）
-
-
-
-https://juejin.cn/post/7181356579709517861
-
-schedule 调度 scheduler 小顶堆数据结构
-render 协调 reconciler  fiber 深度优先遍历（dfs）
-commit 渲染  render ReactDOM ReactArt
-
-lane模型 优先级模型 了解二进制掩码
-
-ClassComponent     面向对象
-FunctionComponent  函数式（编译时优化，useMemo useCallback）
-
-hooks 代数效应
-
-event loop
-message channel 宏任务 微任务
-
-
+tree-shaking
+v8引擎
 
 
 宏任务 微任务 同步任务先执行然后才是宏微任务
