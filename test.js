@@ -444,7 +444,7 @@ Function.prototype.myApply = function(context, args) {
 };
 
 
-function create(obj) {
+function myCreate(obj) {
     function F(){}
     F.prototype = obj
     return new F()
@@ -2392,7 +2392,7 @@ console.log( obj.name );  // 输出：sven
 console.log( obj.getName() );  // 输出：sven
 console.log( Object.getPrototypeOf( obj ) === Person.prototype );  // 输出：true
 // 在 JavaScript 中，new 运算符并不真正克隆 Object.prototype 来创建新的对象。相反，它使用了原型链机制，这不仅节省了内存，还提升了性能。具体来说，JavaScript 使用了共享原型对象的方式来创建新对象，从而避免了对 Object.prototype 进行真正的克隆。以下是 JavaScript 中 new 运算符的详细工作过程，特别是内存方面的处理：
-// 创建一个新的空对象：使用 {} 或者 Object.create(null) 创建一个新对象。
+// 创建一个新的空对象：使用 {} 或者 Object.create(null) 创建一个新对象。Object.create(null)和{}很像， 但是并不会建Object. prototype这个委托，所以它比 {}“更空”
 // 设置新对象的原型：将新对象的原型设置为构造函数的 prototype 属性。这里并没有克隆 prototype，而是将新对象的 __proto__ 指向构造函数的 prototype，从而实现原型链的共享。这一步骤通过 Object.setPrototypeOf 或 __proto__ 来实现。
 // 绑定 this 并执行构造函数：将构造函数的 this 绑定到新对象上，并执行构造函数中的代码，为新对象添加属性和方法。
 // 返回新对象：如果构造函数显式返回一个对象，则返回该对象；否则，返回新创建的对象。
