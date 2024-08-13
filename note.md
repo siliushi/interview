@@ -2,18 +2,28 @@ React源码
 Vue3
 webgl
 
+搭一个博客
+
 数据存储字节
 tree-shaking
 v8引擎
 node.js
 
+换肤
 
+迭代器：https://juejin.cn/post/7401408756221542426
 
 低码
 https://github.com/maqi1520/react-antd-low-code
 
 
-
+https://juejin.cn/post/7322313142922559498
+https://juejin.cn/post/6996945105273765924
+https://juejin.cn/post/6844903827523502087
+0.1+0.2
+十进制转二进制导致精度丢失
+十进制小数转成二进制，一般采用"乘2取整，顺序排列"方法，但是不是所有小数都能转为二进制，比如0.1，人们想出了一种使用近似值表示小数IEEE754
+IEEE754 double类型8个字节，64位,符号为+尾数+阶数
 
 
 宏任务 微任务 同步任务先执行然后才是宏微任务

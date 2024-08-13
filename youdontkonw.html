@@ -9,7 +9,7 @@
 
 <body>
     <script>
-        // 动态作用域
+        // 动态作用域，与调用位置有关
         function foo() { 
             console.log( a ); // 3（不是 2 ！） 
         }
@@ -39,7 +39,9 @@
             foo() // 2
         })()
         // 2、隐式绑定，链式调用最后一层会影响调用位置
-        function foo() { console.log(this.a); }
+        function foo() { 
+            console.log(this.a); 
+        }
         var obj2 = { a: 42, foo: foo };
         var obj1 = { a: 2, obj2: obj2 };
         obj1.obj2.foo(); // 42
@@ -69,7 +71,7 @@
         var bar = function () {
             return foo.apply(obj, arguments);
         };
-        var b = bar(3); // 2 3 
+        var b = bar(3); // 2 3
         console.log(b); // 5
 
 
@@ -135,6 +137,12 @@
         var p = { a: 4 }; o.foo(); // 3 
         (p.foo = o.foo)(); // 2
         // 赋值表达式 p.foo = o.foo 的返回值是目标函数的引用，因此调用位置是foo()而不是p.foo()或者o.foo()。根据我们之前说过的，这里会应用默认绑定。
+
+
+        let aa = {aa: 'aa'};
+[1,2,3].forEach(function(item) {
+    console.log(this.aa , item)
+},aa)
     </script>
 </body>
 
