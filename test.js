@@ -346,6 +346,36 @@ class MyPromise {
     }
 }
 
+const arr = [new MyPromise((resolve, reject) => {
+    resolve(111)
+}),new MyPromise((resolve, reject) => {
+    resolve(222)
+}),new MyPromise((resolve, reject) => {
+    resolve(333)
+})]
+async  function test() {
+    // for await of
+    for await(let x of arr) {
+        console.log(x)
+    }
+}
+// test();
+
+// += 不能与await操作
+function promise() {
+    return new MyPromise((resolve, reject) => {
+        setTimeout(resolve(1), 1000)
+    })
+}
+async function test2() {
+    let a = 0
+    a += await promise();
+    a += await promise();
+    console.log(a)
+}
+// test2()
+
+
 // 柯里化函数
 function curry(fn) {
     // 获取函数需要的参数个数

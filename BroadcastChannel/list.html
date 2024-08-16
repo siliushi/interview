@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button value="1">1</button>
+    <button value="2">2</button>
+    <button value="3">3</button>
+    <script>
+        const bc = new BroadcastChannel('test_channel');
+        const elems = document.querySelectorAll('button')
+        elems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                // window.open('/detail.html', 'test')
+                let n = localStorage.getItem('value')
+                if(!n) {
+                    window.open('/detail.html', '_blank')
+                    localStorage.setItem('value', 1)
+                }
+                bc.postMessage(e.target.value)
+            })
+        })
+    </script>
+</body>
+</html>

@@ -10,29 +10,44 @@ node.js
 
 css选择器优先级
 
+
+
+
+Jsfuck 
+Js 1k
+代数效应
+
+散列，快速移动监听不到
+
+jsperf
+
 迭代器：https://juejin.cn/post/7401408756221542426
 
 低码
 https://github.com/maqi1520/react-antd-low-code
 
+# 取整数和小数
+console.log(parseInt(0.00000001));  // 1
+console.log(parseInt(1000000000000000000000)); // 1
+这是因为，0.00000001.toString() === 1e-8而1000000000000000000000..toString() === 1e+21。
+parseInt的缺陷：1、先转成字符串，2、科学计数法不准
+第一种：
+Math.round是四舍五入的，Math.ceil是向上取整，Math.floor是向下取整
+如果是负数，要使用Math.ceil，如果是正数，则使用Math.floor
+第二种：
+取整数：Math.trunc()
+第三种：
+let num = 3.75;
+console.log(num | 0); // 3
+num = -num;
+console.log(num | 0); // -3
 
-https://juejin.cn/post/7322313142922559498
-IEEE754：https://juejin.cn/post/6996945105273765924
-0.1+0.2
-十进制转二进制导致精度丢失
-十进制整数转二进制：除二取余，倒序排列
-十进制小数转成二进制，一般采用"乘2取整，顺序排列"方法，但是不是所有小数都能转为二进制，比如0.1，人们想出了一种使用近似值表示小数IEEE754
-IEEE754 double类型8个字节，64位,符号为+尾数+阶码
-64位IEE754
-1位符号为，11位尾数位，52位阶码
-2^-52  Number.EPSILON
-32位IEEE754
-1 8 23
+# BroadcastChannel
+BroadcastChannel只能用于同源的页面之间进行通信，而window.postMessage却可以用于任何的页面之间
 
+# showDirectoryPicker
 
-
-
-宏任务 微任务 同步任务先执行然后才是宏微任务
+# 宏任务 微任务 同步任务先执行然后才是宏微任务
 宏任务（Macrotask）较大的任务，通常是由宿主环境（如浏览器或Node.js）发起的
 宏任务包括：
     setTimeout
@@ -49,7 +64,7 @@ IEEE754 double类型8个字节，64位,符号为+尾数+阶码
     MutationObserver
 微任务队列中的任务也按顺序执行，但它们的执行优先级高于宏任务。也就是说，在当前的宏任务执行完后，事件循环会先处理所有的微任务，然后再处理下一个宏任务。
 
-事件循环（Event Loop）
+# 事件循环（Event Loop）
 事件循环是JavaScript运行时的核心机制，它负责调度和执行任务。其基本过程如下：
 从宏任务队列中取出第一个任务并执行。
 检查并执行所有的微任务，直到微任务队列为空。
@@ -62,9 +77,6 @@ https://share.weiyun.com/CTt8HYKc 密码：254jp6
 https://blog.csdn.net/musio777/article/details/135964396
 
 优化浏览器主线程：https://blog.csdn.net/wangfeijiu/article/details/137948341
-
-
-数据存储字节
 
 
 // 周六
