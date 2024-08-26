@@ -9,9 +9,11 @@ v8引擎
 node.js
 
 css选择器优先级
+计算机网络：
+https://www.bilibili.com/video/BV1t34y1d7yA?p=30&vd_source=8e6dfd9fb6e70ce8104f69d8d3ea1703
+https://blog.csdn.net/m0_49635911/article/details/137932222
 
-
-
+import *
 
 Jsfuck 
 Js 1k
@@ -26,9 +28,42 @@ jsperf
 低码
 https://github.com/maqi1520/react-antd-low-code
 
+
+string、boolean、number、null、undefined 和  object symbol
+函数、数组都是object的子类
+不同的对象在底层都表示为二进制，在 JavaScript 中二进制前三位都为 0 的话会被判 断为 object 类型，null 的二进制表示是全 0，自然前三位也是 0，所以执行 typeof 时会返回“object”
+
+# js
+作用域RHS和LHS
+词法作用域查找只会查找一级标识符
+new Function(..)
+with给obj赋值一个没有的属性，非严格模式下会创建一个全局属性并赋值
+变量和函数，函数会首先被提升，然后才是变量，在后面的函数声明还是可以覆盖前面的
+声明和执行两步，先声明变量，赋值留在原地等待执行
+动态作用域，不关心函数是如何声明以及在何处声明,只关心它们从何处调
+箭头函数继承了上层函数的this绑定，根据外层（函数或者全局）作用域来决 定 this。
+this被自动定义在所有函数的作用域中
+直接执行函数，函数内部的this都指向全局，严格模式，全局对象将无法使用默认绑定，因此 this 会绑定 到 undefined
+this 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。
+this 是在运行时进行绑定的
+严格模式与调用位置无关，与定义有关
+new > 显示 > 隐士 > 默认
+null 或者 undefined 作为 this 的绑定对象传入 call、apply 或者 bind，这些值 在调用时会被忽略，实际应用的是默认绑定规则，相当于直接调用函数，且函数内部没有this
+赋值表达式 p.foo = o.foo 的返回值是目标函数的引用，因此调用位置是foo()而不是p.foo()或者o.foo()
+如果要判断一个运行中函数的 this 绑定，就需要找到这个函数的直接调用位置。找到之后 就可以顺序应用下面这四条规则来判断 this 的绑定对象。 
+1. 由 new 调用？绑定到新创建的对象。 
+2. 由 call 或者 apply（或者 bind）调用？绑定到指定的对象。 
+3. 由上下文对象调用？绑定到那个上下文对象。
+4. 默认：在严格模式下绑定到 undefined，否则绑定到全局对象。
+赋值，只要是对象（属性是对象也算），修改属性会影响原对象
+Object.preventExtensions(obj)
+判断属性是否在对象里: in或者hasOwnProperty
+ES6 中的符号 Symbol.iterator 来获取数组的 @@iterator 内部属 性。var it = myArray[Symbol.iterator]()
+obj.propertyIsEnumerable('a')
+
 # 取整数和小数
 console.log(parseInt(0.00000001));  // 1
-console.log(parseInt(1000000000000000000000)); // 1
+console.log(parseInt(9000000000000000000000)); // 9
 这是因为，0.00000001.toString() === 1e-8而1000000000000000000000..toString() === 1e+21。
 parseInt的缺陷：1、先转成字符串，2、科学计数法不准
 第一种：
@@ -64,7 +99,9 @@ BroadcastChannel只能用于同源的页面之间进行通信，而window.postMe
     MutationObserver
 微任务队列中的任务也按顺序执行，但它们的执行优先级高于宏任务。也就是说，在当前的宏任务执行完后，事件循环会先处理所有的微任务，然后再处理下一个宏任务。
 
+
 # 事件循环（Event Loop）
+同步任务->微任务->UI渲染->宏任务第一个任务->微任务->UI渲染
 事件循环是JavaScript运行时的核心机制，它负责调度和执行任务。其基本过程如下：
 从宏任务队列中取出第一个任务并执行。
 检查并执行所有的微任务，直到微任务队列为空。
@@ -117,6 +154,7 @@ Object.getOwnPropertyDescriptors()
 Object.getOwnPropertyNames()
 Object.getOwnPropertySymbols()
 obj.hasOwnProperty()
+.isPrototypeOf(..)
 
 // promise、ajax、继承、Diff、LOD
 
@@ -167,3 +205,8 @@ document.addEventListener(
   },
   false
   );
+
+
+
+put: 全部更新
+patch：部分更新
