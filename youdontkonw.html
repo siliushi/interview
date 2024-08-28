@@ -28,7 +28,7 @@
         // eval：相当于将字符串在当前环境执行，严格模式下会生成自己的作用域
         function foo(str, a) {
             eval( str ); // 欺骗！
-            console.log( a, b ); 
+            console.log( a, b );
         }
         var b = 2;
         foo( "var b = 3;", 1 ); // 1, 3
@@ -39,7 +39,7 @@
         // 单调乏味的重复 "obj"
         obj.a = 2;
         obj.b = 3;
-        obj.c = 4; 
+        obj.c = 4;
         // 简单的快捷方式
         with (obj) {
             a = 3;
@@ -70,12 +70,13 @@
         function footest() {
             console.log(987)
         }
-        foo(); // 查找不到方法，因为foo包在条件语句里不能进行函数提升
+        // foo2(); // 查找不到方法，因为foo包在条件语句里，函数名会提升，但是函数体不会提升
+        console.log(foo2) // undefined
         var a = true;
         if (a) {
-        function foo() { console.log("a"); } }
+        function foo2() { console.log("a"); } }
         else {
-        function foo() { console.log("b"); } }
+        function foo2() { console.log("b"); } }
 
         
         // 闭包：在不污染外部作用域的情况下，访问词法作用域以外的变量
@@ -236,23 +237,21 @@
         // 软绑定
         // 给默认绑定指定一个全局对象和 undefined 以外的值，当执行绑定时判断this是否是window，如果是就绑定到obj
 
-        // 如果要判断一个运行中函数的 this 绑定，就需要找到这个函数的直接调用位置。找到之后 就可以顺序应用下面这四条规则来判断 this 的绑定对象。 
-        // 1. 由 new 调用？绑定到新创建的对象。 
-        // 2. 由 call 或者 apply（或者 bind）调用？绑定到指定的对象。 
+        // 如果要判断一个运行中函数的 this 绑定，就需要找到这个函数的直接调用位置。找到之后 就可以顺序应用下面这四条规则来判断 this 的绑定对象。
+        // 1. 由 new 调用？绑定到新创建的对象。
+        // 2. 由 call 或者 apply（或者 bind）调用？绑定到指定的对象。
         // 3. 由上下文对象调用？绑定到那个上下文对象。
         // 4. 默认：在严格模式下绑定到 undefined，否则绑定到全局对象。
-
-
 
         // 内置对象
         // • String • Number • Boolean • Object • Function • Array • Date • RegExp • Error
         var strPrimitive = "I am a string";
-        typeof strPrimitive; // "string" 
+        typeof strPrimitive; // "string"
         strPrimitive instanceof String; // false
         var strObject = new String( "I am a string" );
-        typeof strObject; // "object" 
-        strObject instanceof String; // true 
-        // 检查 sub-type 对象 
+        typeof strObject; // "object"
+        strObject instanceof String; // true
+        // 检查 sub-type 对象
         Object.prototype.toString.call( strObject ); // [object String]
 
         // 对象
@@ -263,29 +262,28 @@
 
         // 不变性：对象引用的其他对象是不受影响的
         // 属性描述符：Object.getOwnPropertyDescriptor( myObject, "a" );
-        // writable（可写）、 enumerable（可枚举）和 configurable（可配置）
-        // configurable为false的话writeable一定为false，不可修改、 重定义或者删除
+        // writable（可写）、enumerable（可枚举）和configurable（可配置）
+        // configurable为false的话，不可重定义或者删除
 
         // 禁止扩展
-        // 禁 止 一 个 对 象 添 加 新 属 性 并 且 保 留 已 有 属 性：Object.preventExtensions(obj)
+        // 禁止一个对象添加新属性并且保留已有属性：Object.preventExtensions(obj)
 
-        // 密封：Object.seal()密封之后不仅不能添加新属性，也不能重新配置或者删除任何现有属性（虽然可以 修改属性的值）
+        // 密封：Object.seal()密封之后不仅不能添加新属性，也不能重新配置或者删除任何现有属性（虽然可以修改属性的值）
         // 在一个现有对象上调用Object.preventExtensions(obj)并把所有现有属性标记为configurable:false。
 
         // 冻结:Object.freeze()
         // 会在一个现有对象上调用 Object.seal(..) 并把所有“数据访问”属性标记为 writable:false，这样就无法修改它们 的值。
 
-
-        // [[Get]] 操作： Object.a就执行了Get操作，首先在对象中查找是否有名称相同的属性， 如果找到就会返回这个属性的值。否则遍历可能存在的 [[Prototype]] 链， 也就是原型链
-        var myObject = { 
+        // [[Get]] 操作： Object.a就执行了Get操作，首先在对象中查找是否有名称相同的属性，如果找到就会返回这个属性的值。否则遍历可能存在的 [[Prototype]] 链， 也就是原型链
+        var myObject = {
             a: undefined
         };
-        myObject.a; // undefined 
+        myObject.a; // undefined
         myObject.b; // undefined
         // [[Put]]操作：
         // 如果已经存在这个属性
-        // 1. 属性是否是访问描述符（参见 3.3.9 节）？如果是并且存在 setter 就调用 setter。 
-        // 2. 属性的数据描述符中 writable 是否是 false ？如果是，在非严格模式下静默失败，在 严格模式下抛出 TypeError 异常。 
+        // 1. 属性是否是访问描述符（参见 3.3.9 节）？如果是并且存在 setter 就调用 setter。
+        // 2. 属性的数据描述符中 writable 是否是 false ？如果是，在非严格模式下静默失败，在 严格模式下抛出 TypeError 异常。
         // 3. 如果都不是，将该值设置为属性的值。
         // 如果对象中不存在这个属性
         // 1. 如果在[[Prototype]]链上层存在名为foo的普通数据访问属性并且没有被标记为只读（writable:false），那就会直接在myObject中添加一个名为foo的新属性，它是屏蔽属性。
@@ -295,7 +293,7 @@
         // Getter和Setter“访问描述 符”
         // 使用 getter 和 setter 部分改写默认操作，但是只能应用在单个属性上，无法应用在整个对象上。
         // 当属性定义Getter和Setter，会忽略它们的 value 和 writable 特性，取而代之的是关心 set 和 get（还有 configurable 和 enumerable）特性。
-        var myObject = { 
+        var myObject = {
             _a_: 2,
             // 给 a 定义一个 getter 
             get a() { return this._a_; },
@@ -304,18 +302,18 @@
                 this._a_ = val * 2;
             }
         };
-        Object.defineProperty( 
+        Object.defineProperty(
             myObject, // 目标对象
-            "b", // 属性名 
+            "b", // 属性名
             {
-                // 描述符 
-                // 给 b 设置一个 getter 
-                get: function(){ return this.a * 2 }, 
-                // 确保 b 会出现在对象的属性列表中 
-                enumerable: true 
+                // 描述符
+                // 给 b 设置一个 getter
+                get: function(){ return this.a * 2 },
+                // 确保 b 会出现在对象的属性列表中
+                enumerable: true
             }
         );
-        console.log('myObject.a',myObject.a); // 2 
+        console.log('myObject.a',myObject.a); // 2
         console.log('myObject.b',myObject.b); // 4
 
         // 判断属性是否在对象里
@@ -331,26 +329,26 @@
         // Object.keys( myObject ); // ["a"]
         // Object.getOwnPropertyNames( myObject ); // ["a", "b"]
 
-        // 对象没有内置迭代器@@iterator，为了避免影响未来的对象 类型。
+        // 对象没有内置迭代器@@iterator，为了避免影响未来的对象类型。
         var myObject = { a: 2, b: 3 };
-        Object.defineProperty( myObject, Symbol.iterator, {
+        Object.defineProperty(myObject, Symbol.iterator, {
             enumerable: false,
             writable: false,
             configurable: true,
             value: function() {
                 var o = this;
                 var idx = 0;
-                var ks = Object.keys( o );
-                return { 
+                var ks = Object.keys(o);
+                return {
                     next: function() {
-                        return { value: o[ks[idx++]], done: (idx > ks.length) }; 
-                    } 
-                }; 
-            } 
+                        return { value: o[ks[idx++]], done: (idx > ks.length) };
+                    }
+                };
+            }
         }); 
-        // 手动遍历 myObject 
-        var it = myObject[Symbol.iterator](); 
-        it.next(); // { value:2, done:false } 
+        // 手动遍历 myObject
+        var it = myObject[Symbol.iterator]();
+        it.next(); // { value:2, done:false }
         it.next(); // { value:3, done:false } 
         it.next(); // { value:undefined, done:true }
         // 用 for..of 遍历 myObject
@@ -360,26 +358,73 @@
         // every(..) 会一直运行直到回调函数返回 false（或者“假”值），some(..) 会一直运行直到回调函数返回 true（或者 “真”值）
         // 内置迭代器@@iterator
         var myArray = [ 1, 2, 3 ];
-        var it = myArray[Symbol.iterator](); 
-        it.next(); // { value:1, done:false } 
+        var it = myArray[Symbol.iterator]();
+        it.next(); // { value:1, done:false }
         it.next(); // { value:2, done:false } 
-        it.next(); // { value:3, done:false } 
+        it.next(); // { value:3, done:false }
         it.next(); // { done:true }
-
-
 
         // 混合对象类
         // 设计模式：实例化（instantiation）、继承（inheritance）和 （相对）多态（polymorphism）。
 
-        // 子类得到的只是父类的一份副本。类的继承其实就是 复制
+        // 子类得到的只是父类的一份副本。类的继承其实就是复制
 
         // 混入Mixin
         // 显示/隐士
         
         // 原型
+        // 对象有一个特殊的 [[Prototype]] 内置属性，其实就是对于其他对象的引用。
         var anotherObject = { a:2 };
         var myObject = Object.create( anotherObject ); // 创建一个对象并把这个对象的 [[Prototype]] 关联到指定的对象。
-        myObject.a;
+        console.log('myObject.a', myObject.a);
+        anotherObject.hasOwnProperty('a') // true
+        myObject.hasOwnProperty('a') // false
+        // 隐式产生屏蔽，++操作相当于 myObject.a = myObject.a + 1
+        myObject.a++; 
+        myObject.a // 3
+        anotherObject // 2
+        myObject.hasOwnProperty( "a" ); // true
+
+        // 所有的函数默认都会拥有一个名为 prototype 的公有并且不可枚举的属性，它会指向另一个对象：这个对象通常被称为 Foo 的原型，因为我们通过名为 Foo.prototype 的属性引用来访问它。
+        // 调用 new Foo()时创建的，最后会被关联到这个“Foo.prototype”对象上
+        function foo() {}
+        var a = new foo()
+        Object.getPrototypeOf(a) === foo.prototype // true
+        //  new
+        // 在JavaScript中，并没有类似的复制机制。你不能创建一个类的多个实例，只能创建多个对象，它们 [[Prototype]] 关联的是同一个对象。但是在默认情况下并不会进行复制， 因此这些对象之间并不会完全失去联系，它们是互相关联的。
+        // new两个对象，它们之间互相关联，我们并没有初始化一个类，实际上我们并没有从“类”中复制任何行为到一个对象中，只是让两个对象互相关联。
+        // new Foo() 这个函数调用实际上并没有直接创建关联，这个关联只是一个意外的副作用。new Foo() 只是间接完成了我们的目 标：一个关联到其他对象的新对象
+        // constructor
+        // Foo.prototype默认有一个公有并且不可枚举的属性 .constructor，这个属性引用的是对象关联的函数（本例中是 Foo）。
+        // 通过“构造函数”调用new Foo()创建的对象也有一个 .constructor属性，指向 “创建这个对象的函数”。
+        a.constructor === foo
+        foo.prototype.constructor === foo
+        // 实际上a并没有constructor
+
+        // 构造函数还是调用？
+        // 你在普通的函数调用前面加上new关键字之后，就会把这个函数调用变成一个“构造函数 调用”。实际上，new会劫持所有普通函数并用构造对象的形式来调用它。
+        function NothingSpecial() {
+            let a = 1;
+            console.log(a);
+        }
+        var a = new NothingSpecial(); // 1
+        a; // {}
+
+
+
+        // 技术
+        // 模仿类
+        function Foo(name) {
+            this.name = name;
+        }
+        Foo.prototype.myName = function() {
+            return this.name;
+        };
+        var a = new Foo( "a" );
+        var b = new Foo( "b" );
+        a.myName(); // "a"
+        b.myName(); // "b"
+        // 看起来似乎创建 a 和 b 时会把 Foo.prototype 对象复制到这两个对象中， 然而事实并不是这样。
 
 
         let aa = { aa: 'aa' };
@@ -399,6 +444,34 @@
         // copy.a.b = 0;
         // console.log(origin)
 
+
+
+        // 中卷
+        // number string boolean null undefined object symbol
+        var a = null;
+        // 判断null
+        (!a && typeof a === "object"); // true
+        typeof function () {}  // function
+        typeof Array // object
+        typeof null // object
+        typeof undefined // undefined
+        typeof 1 // number
+        typeof 'string' // string
+        typeof true // boolean
+        typeof Symbol() // symbol
+
+        // 依赖注入：将依赖通过参数显式地传递到函数中
+
+        // “稀疏”数组
+        var a = []
+        a[0] = 1;
+        a[2] = 2
+        console.log(a[1]) // undefined
+        console.log(a.length) // 3
+        a['foobar'] = 3;// 字符串键值和属性（但这些并不计算在数组长度内）
+        console.log(a.length) // 3
+        a['3'] = 3// 如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理。
+        console.log(a.length) // 4
     </script>
 </body>
 

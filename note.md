@@ -4,6 +4,8 @@ webgl
 
 搭一个博客
 
+[]+[]:https://blog.csdn.net/weixin_30432179/article/details/94868337
+
 tree-shaking
 v8引擎
 node.js
@@ -60,6 +62,10 @@ Object.preventExtensions(obj)
 判断属性是否在对象里: in或者hasOwnProperty
 ES6 中的符号 Symbol.iterator 来获取数组的 @@iterator 内部属 性。var it = myArray[Symbol.iterator]()
 obj.propertyIsEnumerable('a')
+Object.assign浅复制，不会复制属性描述，=会复制属性描述
+
+
+
 
 # 取整数和小数
 console.log(parseInt(0.00000001));  // 1
