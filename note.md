@@ -64,8 +64,22 @@ ES6 中的符号 Symbol.iterator 来获取数组的 @@iterator 内部属 性。v
 obj.propertyIsEnumerable('a')
 Object.assign浅复制，不会复制属性描述，=会复制属性描述
 
-
-
+中卷
+number string boolean null undefined object symbol
+依赖注入：将依赖通过参数显式地传递到函数中
+“稀疏”数组
+字符串键值和属性（但这些并不计算在数组长度内）
+如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理。
+NaN 是 JavaScript 中唯 一一个不等于自身的值。
+对负零进行字符串化会返回 "0"
+-0 === 0 // true
+var a = new Boolean( false ); a是true值
+null和undefined在==情况下相等，和其他都不想等
+加法转字符串
+相等判断转数字
+null 和 undefined 不能够被封装（boxed），Object(null)和 Object() 均返回一个常规对象。
+""、"\n"（或者 " " 等其他空格组合）等空字符串被 ToNumber 强制类型转换为 0。
+对象和数组的比较操作会先执行toPrimitive
 
 # 取整数和小数
 console.log(parseInt(0.00000001));  // 1
@@ -115,6 +129,12 @@ BroadcastChannel只能用于同源的页面之间进行通信，而window.postMe
 重复上述步骤。
 
 
+# 类型转换
+如果其中有一个操作数为string，则将另一个操作数隐式的转换为string，然后进行字符串拼接得出结果。
+如果操作数为对象({})或者是数组([])这种复杂的数据类型，那么就将两个操作数都转换为字符串，进行拼接
+String([]) //[]进行字符串转换得到结果为""
+String({}) //{}进行字符串转换得到结果为"[object Object]"
+如果操作数是像boolean这种的简单数据类型，那么就将操作数转换为number相加得出结果
 
 https://share.weiyun.com/CTt8HYKc 密码：254jp6
 https://blog.csdn.net/musio777/article/details/135964396
@@ -181,7 +201,7 @@ add_header X-Frame-Options DENY;
 
 手动触发事件更好的做法是IE下用fireEvent，标准浏览器下用dispatchEvent实现。
 
-delete只能删除对象的属性
+delete删除对象的属性、数组元素
 length可以清空数组
 
 const event = new Event('click')  new KeyboardEvent('key', '')
@@ -216,3 +236,6 @@ document.addEventListener(
 
 put: 全部更新
 patch：部分更新
+
+
+utc时间：协调世界时，又称世界统一时间、世界标准时间、国际协调时间。比北京时间慢8小时

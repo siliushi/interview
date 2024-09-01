@@ -433,7 +433,7 @@
         }, aa)
 
 
-        // 赋值，只要是对象（属性是对象也算），修改属性会影响原对象
+        // 赋值，只要是对象（属性是对象也算），修改属性会影响原对象，数组也是
         let origin = {
             a: {
                 b: 1
@@ -472,6 +472,175 @@
         console.log(a.length) // 3
         a['3'] = 3// 如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理。
         console.log(a.length) // 4
+
+        // 数字
+        // 保留小数位toFixed
+        console.log(4.333.toFixed(2)) // string
+        console.log(4..toFixed(2)) // string 4.00
+        // 指定有效数位的显示位数，toPrecision
+        console.log(4.333.toPrecision(2)) // string
+        // 能够被“安全”呈现的最大整数是 Number.MAX_SAFE_INTEGER：2^53 - 1
+        // Number.MAX_VALUE
+        // 检测整数Number.isInteger()
+        // 检测是否安全数Number.isSafeInteger()
+        
+        // “不是数字的数字”仍然是数字类型
+        // isNaN(..):检查参数是否不是 NaN，也不是数字
+        console.log(isNaN(NaN)) // true,bug
+        Number.isNaN('foo') // false
+        window.isNaN('foo') // true,bug
+        // NaN 是 JavaScript 中唯 一一个不等于自身的值。
+
+        // 零值
+        var a = 0 / -3; // -0
+        var b = 0 * -3; // -0
+        // 对负零进行字符串化会返回 "0"
+        // JSON.stringify(-0) 返回 "0"，而 JSON.parse("-0") 返回 -0。
+        a.toString(); // "0"
+        a + ""; // "0"
+        String( a ); // "0"
+        // JSON也如此，很奇怪
+        JSON.stringify( a ); // "0"
+        // 有意思的是，如果反过来将其从字符串转换为数字，得到的结果是准确的：
+        +"-0"; // -0
+        Number( "-0" ); // -0
+        JSON.parse( "-0" ); // -0
+
+        -0 === 0 // true
+        // 判断是否是-0
+        function isNegZero(n) {
+            n = Number( n );
+            return (n === 0) && (1 / n === -Infinity);
+        }
+
+        // Infinity/Infinity === NaN
+        // 1/Infinity === 0
+        // -1/Infinity === -0
+
+        NaN === NaN // false
+        // 可以用Object.is()判断
+
+        // 在 JavaScript 中变量不可能成为指向另一个变量的引用。
+        // 通过构造函数（如 new String("abc")）创建出来的是封装了基本类型值（如 "abc"）的封装对象。
+        // 所有 typeof 返回值为 "object" 的对象（如数组）都包含一个内部属性 [[Class]]，这个属性无法直接访问，一般通过 Object.prototype.toString(..) 来查看。
+        // 从 ES5 到 ES6，toString() 和 [[Class]] 的行为发生了一些变化
+
+
+        // 封 装 对 象（object wrapper） 扮 演 着 十 分 重 要 的 角 色。 由 于 基 本 类 型 值 没 有 .length
+        // 和 .toString() 这样的属性和方法，需要通过封装对象才能访问，此时 JavaScript 会自动为
+        // 基本类型值包装（box 或者 wrap）一个封装对象
+        // 因为浏览器已经为 .length 这样的常见情况做了性能优化，直接使用封装对象来“提前优化”代码反而会降低执行效率。
+        // 注意：var a = new Boolean( false ); a是true值
+        // 如果想要自行封装基本类型值，可以使用 Object(..) 函数（不带 new 关键字）
+
+        // 拆封对象：使用 valueOf() 函数或者强制类型转换
+        var a = new String( "abc" ); // String {'abc'}
+        a.valueOf() // 'abc'
+
+
+        // 避免使用构造函数，会有意想不到的问题
+        // new Array
+        // 只带一个数字参数的时候，该参数会被作为数组的预设长度
+        // Array.apply( null, { length: 3 } )
+
+        // Date.now()
+        // (new Date()).getTime()
+        // EvalError(..)、 RangeError(..)、ReferenceError(..)、SyntaxError(..)、TypeError(..) 和 URIError(..)。
+
+        // 符号可以用作属性名，但无论是在代码还是开发控制台中都无法查看和访问它的值，只会显示为诸如 Symbol(Symbol.create) 这样的值。
+        // ES6 中有一些预定义符号，以 Symbol 的静态属性形式出现，如 Symbol.create、Symbol.iterator 等，可以这样来使用
+
+
+        // JSON.stringify(..) 传递一个可选参数 replacer，它可以是数组或者函数
+        // 如果 replacer 是一个数组，那么它必须是一个字符串数组，其中包含序列化要处理的对象的属性名称，除此之外其他的属性则被忽略。
+        // 如果 replacer 是一个函数，它会对对象本身调用一次，然后对对象中的每个属性各调用一次，每次传递两个参数，键和值。
+        // JSON.stringify( a, replacer, 3 );
+        // 如果传递给 JSON.stringify(..) 的对象中定义了 toJSON() 方法，那么该方法会在字符串化前调用，以便将对象转换为安全的 JSON 值。
+        1 + - + + + - + 1 // 2
+
+        // 即构造函数没有参数时可以不用带 () new Date
+
+        if (!~a.indexOf( "ol" )) { // true
+            // 没有找到匹配！
+        }
+
+        // 解析允许字符串中含有非数字字符，解析按从左到右的顺序，如果遇到非数字字符就停止。而转换不允许出现非数字字符，否则会失败并返回 NaN。
+        // Number转换，parseInt解析
+
+
+        // parseInt( 0.000008 ); // 0 ("0" 来自于 "0.000008")
+        // parseInt( 0.0000008 ); // 8 ("8" 来自于 "8e-7")
+        // parseInt( false, 16 ); // 250 ("fa" 来自于 "false")
+        // parseInt( parseInt, 16 ); // 15 ("f" 来自于 "function..")
+        // parseInt( "0x10" ); // 16
+        // parseInt( "103", 2 ); // 2
+        // parseInt( 1/0, 19 );  // 18
+
+        // Symbol
+        // ES6 允许从符号到字符串的显式强制类型转换，然而隐式强制类型转换会产生错误
+        var s1 = Symbol( "cool" );
+        String( s1 ); // "Symbol(cool)"
+        var s2 = Symbol( "not cool" );
+        // s2 + ""; // TypeError
+        // 符号不能够被强制类型转换为数字（显式和隐式都会产生错误），但可以被强制类型转换为布尔值（显式和隐式结果都是 true）。
+
+
+        // == 允许在相等比较中进行强制类型转换，而 === 不允许。
+        // ES5 规范 11.9.3.4-5 这样定义：
+        // (1) 如果 Type(x) 是数字，Type(y) 是字符串，则返回 x == ToNumber(y) 的结果。
+        // (2) 如果 Type(x) 是字符串，Type(y) 是数字，则返回 ToNumber(x) == y 的结果。
+        // 规范 11.9.3.6-7 是这样说的：
+        // (1) 如果 Type(x) 是布尔类型，则返回 ToNumber(x) == y 的结果；
+        // (2) 如果 Type(y) 是布尔类型，则返回 x == ToNumber(y) 的结果。
+        // ES5 规范 11.9.3.2-3 规定：
+        // (1) 如果 x 为 null，y 为 undefined，则结果为 true。
+        // (2) 如果 x 为 undefined，y 为 null，则结果为 true。
+        // 在 == 中 null 和 undefined 相等（它们也与其自身相等），除此之外其他值都不存在这种情况。
+        // ES5 规范 11.9.3.8-9 做如下规定：
+        // (1) 如果 Type(x) 是字符串或数字，Type(y) 是对象，则返回 x == ToPrimitive(y) 的结果；
+        // (2) 如果 Type(x) 是对象，Type(y) 是字符串或数字，则返回 ToPromitive(x) == y 的结果。
+        // null 和 undefined 不能够被封装（boxed），Object(null)和 Object() 均返回一个常规对象。
+
+        var a = "42";
+        var b = true;
+        a == b; // false
+
+        var a = null;
+        var b = Object( a ); // 和Object()一样
+        a == b; // false
+
+        var c = undefined; 
+        var d = Object( c ); // 和Object()一样
+        c == d; // false
+
+        var e = NaN; 
+        var f = Object( e ); // 和new Number( e )一样
+        e == f; // false
+
+        // ""、"\n"（或者 " " 等其他空格组合）等空字符串被 ToNumber 强制类型转换为 0。
+
+
+        // ++a++ 会产生 ReferenceError 错误，因为运算符需要将产生的副作用赋值给一个变量。以 ++a++ 为例，它首先执行 a++（根据运算符优先级，如下），返回 42，然后执行 ++42，这时会产生 ReferenceError 错误，因为 ++ 无法直接在 42 这样的值上产生副作用。
+        var a = 42, b;
+        b = ( a++, a ); // a=43 b=43
+        
+
+
+        foo: for (var i=0; i<4; i++) {
+            for (var j=0; j<4; j++) {
+                // 如果j和i相等，继续外层循环
+                if (j == i) {
+                    // 跳转到foo的下一个循环
+                    continue foo;
+                }
+                // 跳过奇数结果
+                if ((j * i) % 2 == 1) {
+                    // 继续内层循环（没有标签的）
+                    continue; 
+                }
+            console.log( i, j );
+            }
+        }
     </script>
 </body>
 
