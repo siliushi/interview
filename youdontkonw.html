@@ -27,11 +27,11 @@
         // 在运行时修改词法作用域，
         // eval：相当于将字符串在当前环境执行，严格模式下会生成自己的作用域
         function foo(str, a) {
-            eval( str ); // 欺骗！
-            console.log( a, b );
+            eval(str); // 欺骗！
+            console.log(a, b);
         }
         var b = 2;
-        foo( "var b = 3;", 1 ); // 1, 3
+        foo("var b = 3;", 1); // 1, 3
         // setTimeout(..) 和 setInterval(..) 的第一个参数可以是字符串，字符串的内容可以被解释为一段动态生成的 函数代码。
         // new Function(..) 最后一个参数可以接受代码字符串，并将其转化为动态生成的函数（前面的参数是这个新生成的函数的形参）。
         // with
@@ -58,7 +58,7 @@
         // (function() {})()
         // (function() {}())
         // 还有一种变化的用途是倒置代码的运行顺序
-        (function(def) {def()})(function() {console.log(123)})
+        (function (def) { def() })(function () { console.log(123) })
 
         // 块作用域
         // with 
@@ -74,11 +74,13 @@
         console.log(foo2) // undefined
         var a = true;
         if (a) {
-        function foo2() { console.log("a"); } }
+            function foo2() { console.log("a"); }
+        }
         else {
-        function foo2() { console.log("b"); } }
+            function foo2() { console.log("b"); }
+        }
 
-        
+
         // 闭包：在不污染外部作用域的情况下，访问词法作用域以外的变量
 
         // 模块模式
@@ -248,11 +250,11 @@
         var strPrimitive = "I am a string";
         typeof strPrimitive; // "string"
         strPrimitive instanceof String; // false
-        var strObject = new String( "I am a string" );
+        var strObject = new String("I am a string");
         typeof strObject; // "object"
         strObject instanceof String; // true
         // 检查 sub-type 对象
-        Object.prototype.toString.call( strObject ); // [object String]
+        Object.prototype.toString.call(strObject); // [object String]
 
         // 对象
         // .被称为属性访问，属性名满足标识符的命名规范
@@ -308,21 +310,21 @@
             {
                 // 描述符
                 // 给 b 设置一个 getter
-                get: function(){ return this.a * 2 },
+                get: function () { return this.a * 2 },
                 // 确保 b 会出现在对象的属性列表中
                 enumerable: true
             }
         );
-        console.log('myObject.a',myObject.a); // 2
-        console.log('myObject.b',myObject.b); // 4
+        console.log('myObject.a', myObject.a); // 2
+        console.log('myObject.b', myObject.b); // 4
 
         // 判断属性是否在对象里
         ("a" in myObject) // in 操作符会检查属性是否在对象及其 [[Prototype]] 原型链中
-        myObject.hasOwnProperty( "a" ); // 只会检查属性是否在 myObject 对象中，不会检查 [[Prototype]] 链
+        myObject.hasOwnProperty("a"); // 只会检查属性是否在 myObject 对象中，不会检查 [[Prototype]] 链
 
         // 所有的普通对象都可以通过对于 Object.prototype的委托来访问hasOwnProperty(..)，但是有的对象可能没有连接到 Object.prototype（通过 Object. create(null)来创建）。
         // 在这种情况下，形如 myObejct.hasOwnProperty(..)就会失败。 这时可以使用一种更加强硬的方法来进行判断：Object.prototype.hasOwnProperty. call(myObject,"a")，它借用基础的 hasOwnProperty(..) 方法并把它显式绑定（参见第 2 章）到 myObject 上。
-        
+
         // 枚举 enumerable
         // enumerable为false不影响in或者hasOwnProperty，  影响for in
         // myObject.propertyIsEnumerable( "a" );检查给定的属性名是否直接存在于对象中（而不是在原型链 上）并且满足 enumerable:true。
@@ -335,29 +337,29 @@
             enumerable: false,
             writable: false,
             configurable: true,
-            value: function() {
+            value: function () {
                 var o = this;
                 var idx = 0;
                 var ks = Object.keys(o);
                 return {
-                    next: function() {
+                    next: function () {
                         return { value: o[ks[idx++]], done: (idx > ks.length) };
                     }
                 };
             }
-        }); 
+        });
         // 手动遍历 myObject
         var it = myObject[Symbol.iterator]();
         it.next(); // { value:2, done:false }
         it.next(); // { value:3, done:false } 
         it.next(); // { value:undefined, done:true }
         // 用 for..of 遍历 myObject
-        for (var v of myObject) { console.log( v ); }// 2 // 3
+        for (var v of myObject) { console.log(v); }// 2 // 3
 
         // 数组
         // every(..) 会一直运行直到回调函数返回 false（或者“假”值），some(..) 会一直运行直到回调函数返回 true（或者 “真”值）
         // 内置迭代器@@iterator
-        var myArray = [ 1, 2, 3 ];
+        var myArray = [1, 2, 3];
         var it = myArray[Symbol.iterator]();
         it.next(); // { value:1, done:false }
         it.next(); // { value:2, done:false } 
@@ -371,23 +373,23 @@
 
         // 混入Mixin
         // 显示/隐士
-        
+
         // 原型
         // 对象有一个特殊的 [[Prototype]] 内置属性，其实就是对于其他对象的引用。
-        var anotherObject = { a:2 };
-        var myObject = Object.create( anotherObject ); // 创建一个对象并把这个对象的 [[Prototype]] 关联到指定的对象。
+        var anotherObject = { a: 2 };
+        var myObject = Object.create(anotherObject); // 创建一个对象并把这个对象的 [[Prototype]] 关联到指定的对象。
         console.log('myObject.a', myObject.a);
         anotherObject.hasOwnProperty('a') // true
         myObject.hasOwnProperty('a') // false
         // 隐式产生屏蔽，++操作相当于 myObject.a = myObject.a + 1
-        myObject.a++; 
+        myObject.a++;
         myObject.a // 3
         anotherObject // 2
-        myObject.hasOwnProperty( "a" ); // true
+        myObject.hasOwnProperty("a"); // true
 
         // 所有的函数默认都会拥有一个名为 prototype 的公有并且不可枚举的属性，它会指向另一个对象：这个对象通常被称为 Foo 的原型，因为我们通过名为 Foo.prototype 的属性引用来访问它。
         // 调用 new Foo()时创建的，最后会被关联到这个“Foo.prototype”对象上
-        function foo() {}
+        function foo() { }
         var a = new foo()
         Object.getPrototypeOf(a) === foo.prototype // true
         //  new
@@ -417,11 +419,11 @@
         function Foo(name) {
             this.name = name;
         }
-        Foo.prototype.myName = function() {
+        Foo.prototype.myName = function () {
             return this.name;
         };
-        var a = new Foo( "a" );
-        var b = new Foo( "b" );
+        var a = new Foo("a");
+        var b = new Foo("b");
         a.myName(); // "a"
         b.myName(); // "b"
         // 看起来似乎创建 a 和 b 时会把 Foo.prototype 对象复制到这两个对象中， 然而事实并不是这样。
@@ -451,7 +453,7 @@
         var a = null;
         // 判断null
         (!a && typeof a === "object"); // true
-        typeof function () {}  // function
+        typeof function () { }  // function
         typeof Array // object
         typeof null // object
         typeof undefined // undefined
@@ -483,7 +485,7 @@
         // Number.MAX_VALUE
         // 检测整数Number.isInteger()
         // 检测是否安全数Number.isSafeInteger()
-        
+
         // “不是数字的数字”仍然是数字类型
         // isNaN(..):检查参数是否不是 NaN，也不是数字
         console.log(isNaN(NaN)) // true,bug
@@ -498,18 +500,18 @@
         // JSON.stringify(-0) 返回 "0"，而 JSON.parse("-0") 返回 -0。
         a.toString(); // "0"
         a + ""; // "0"
-        String( a ); // "0"
+        String(a); // "0"
         // JSON也如此，很奇怪
-        JSON.stringify( a ); // "0"
+        JSON.stringify(a); // "0"
         // 有意思的是，如果反过来将其从字符串转换为数字，得到的结果是准确的：
         +"-0"; // -0
-        Number( "-0" ); // -0
-        JSON.parse( "-0" ); // -0
+        Number("-0"); // -0
+        JSON.parse("-0"); // -0
 
         -0 === 0 // true
         // 判断是否是-0
         function isNegZero(n) {
-            n = Number( n );
+            n = Number(n);
             return (n === 0) && (1 / n === -Infinity);
         }
 
@@ -534,7 +536,7 @@
         // 如果想要自行封装基本类型值，可以使用 Object(..) 函数（不带 new 关键字）
 
         // 拆封对象：使用 valueOf() 函数或者强制类型转换
-        var a = new String( "abc" ); // String {'abc'}
+        var a = new String("abc"); // String {'abc'}
         a.valueOf() // 'abc'
 
 
@@ -560,7 +562,7 @@
 
         // 即构造函数没有参数时可以不用带 () new Date
 
-        if (!~a.indexOf( "ol" )) { // true
+        if (!~a.indexOf("ol")) { // true
             // 没有找到匹配！
         }
 
@@ -578,9 +580,9 @@
 
         // Symbol
         // ES6 允许从符号到字符串的显式强制类型转换，然而隐式强制类型转换会产生错误
-        var s1 = Symbol( "cool" );
-        String( s1 ); // "Symbol(cool)"
-        var s2 = Symbol( "not cool" );
+        var s1 = Symbol("cool");
+        String(s1); // "Symbol(cool)"
+        var s2 = Symbol("not cool");
         // s2 + ""; // TypeError
         // 符号不能够被强制类型转换为数字（显式和隐式都会产生错误），但可以被强制类型转换为布尔值（显式和隐式结果都是 true）。
 
@@ -606,15 +608,15 @@
         a == b; // false
 
         var a = null;
-        var b = Object( a ); // 和Object()一样
+        var b = Object(a); // 和Object()一样
         a == b; // false
 
-        var c = undefined; 
-        var d = Object( c ); // 和Object()一样
+        var c = undefined;
+        var d = Object(c); // 和Object()一样
         c == d; // false
 
-        var e = NaN; 
-        var f = Object( e ); // 和new Number( e )一样
+        var e = NaN;
+        var f = Object(e); // 和new Number( e )一样
         e == f; // false
 
         // ""、"\n"（或者 " " 等其他空格组合）等空字符串被 ToNumber 强制类型转换为 0。
@@ -622,25 +624,47 @@
 
         // ++a++ 会产生 ReferenceError 错误，因为运算符需要将产生的副作用赋值给一个变量。以 ++a++ 为例，它首先执行 a++（根据运算符优先级，如下），返回 42，然后执行 ++42，这时会产生 ReferenceError 错误，因为 ++ 无法直接在 42 这样的值上产生副作用。
         var a = 42, b;
-        b = ( a++, a ); // a=43 b=43
-        
+        b = (a++, a); // a=43 b=43
 
 
-        foo: for (var i=0; i<4; i++) {
-            for (var j=0; j<4; j++) {
+        // 标签: 对带标签的代码块使用break ___，但是不能对带标签的非循环代码块使用 continue ___，也不能对不带标签的代码块使用 break：
+        // continue 和 break 语句都可以带一个标签
+        foo: for (var i = 0; i < 4; i++) {
+            for (var j = 0; j < 4; j++) {
                 // 如果j和i相等，继续外层循环
                 if (j == i) {
-                    // 跳转到foo的下一个循环
-                    continue foo;
+                    // 跳转到foo的下一个循环，相当于break
+                    continue foo; // contine foo 并不是指“跳转到标签 foo 所在位置继续执行”，而是“执行foo 循环的下一轮循环”。
                 }
                 // 跳过奇数结果
                 if ((j * i) % 2 == 1) {
                     // 继续内层循环（没有标签的）
-                    continue; 
+                    continue;
                 }
-            console.log( i, j );
+                console.log(i, j);
             }
         }
+        // break实现从内层循环跳转到外层循环。
+        foo: for (var i = 0; i < 4; i++) {
+            for (var j = 0; j < 4; j++) {
+                if ((i * j) >= 3) {
+                    console.log("stopping!", i, j);
+                    // 相当于return
+                    break foo; // “跳出标签foo 所在的循环 / 代码块，继续执行后面的代码”。
+                }
+                console.log(i, j);
+            }
+        }
+        // 函数
+        function foo() {
+            bar: {
+                console.log(1)
+                break bar; // 标签也能用于非循环代码块，但只有 break 才可以
+                console.log(2)
+            }
+            console.log(3)
+        }
+        foo() // 1 3
     </script>
 </body>
 

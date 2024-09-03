@@ -71,6 +71,7 @@ number string boolean null undefined object symbol
 字符串键值和属性（但这些并不计算在数组长度内）
 如果字符串键值能够被强制类型转换为十进制数字的话，它就会被当作数字索引来处理。
 NaN 是 JavaScript 中唯 一一个不等于自身的值。
+[]!=[] [] == ![]
 对负零进行字符串化会返回 "0"
 -0 === 0 // true
 var a = new Boolean( false ); a是true值
@@ -80,6 +81,7 @@ null和undefined在==情况下相等，和其他都不想等
 null 和 undefined 不能够被封装（boxed），Object(null)和 Object() 均返回一个常规对象。
 ""、"\n"（或者 " " 等其他空格组合）等空字符串被 ToNumber 强制类型转换为 0。
 对象和数组的比较操作会先执行toPrimitive
+ReferenceError SyanxError TypeError URIError EvalError RangeError
 
 # 取整数和小数
 console.log(parseInt(0.00000001));  // 1
