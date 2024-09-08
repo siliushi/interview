@@ -13,6 +13,11 @@ function sumLoop(start, end) {
 
 self.onmessage = function(event) {
 	var data = event.data;
-	var result = sumLoop(0, data);
-	self.postMessage(result);
+	if(typeof data === 'number') {
+		var result = sumLoop(0, data);
+		self.postMessage(result);
+	} else {
+		const canvas = data.canvas
+		const ctx = canvas.getContext('2d')
+	}
 };

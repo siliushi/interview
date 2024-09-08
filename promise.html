@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var p1 = new Promise(function(resolve, reject) {
+            return new Promise(function(resolve, reject) {
+                resolve(1, 2)
+            }).then(resolve)
+        });
+        p1.then(function(res) {
+            console.log(res)
+        })
+        // 错误处理
+        // p1.then(function() {
+        //     foo()
+        //     console.log(4)
+        //     return 2;
+        // })
+        // .then(function() {
+        //     console.log(5)
+        //     return 3
+        // })
+        // .then(function() {
+        //     console.log(7)
+        //     return 3
+        // }, function() {
+        //     console.log(6)
+        // })
+        // .catch(function(res) {
+        //     console.log(1111)
+        //     return 4
+        // })
+        // .finally(function() {
+        //     console.log(8)
+        // })
+        console.log(Promise.wrap)
+    </script>
+</body>
+</html>

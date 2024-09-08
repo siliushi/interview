@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 属性：defer、async、preload、nomodule
+        // type值：module、importmap、text/typescript、application/javascript(文件)
+        // 
+
+
+        // 获取所有的 script 标签
+        var scripts = document.getElementsByTagName('script');
+
+        // 遍历所有 script 标签
+        for (var i = 0; i < scripts.length; i++) {
+            // 检查 script 标签是否有 data-execute="true" 标记
+            if (scripts[i].getAttribute('data-execute') === 'true') {
+                // 创建新的 script 标签
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+
+                // 将当前 script 标签的内容复制到新 script 标签中
+                script.text = scripts[i].innerHTML;
+
+                // 将新 script 标签添加到文档中以执行代码
+                document.body.appendChild(script);
+            }
+        }
+
+    </script>
+    <!-- 需要执行的脚本，带有自定义标记 -->
+    <script  type="text/javascript" data-execute="true">
+        console.log("Script 1 executed.");
+    </script>
+
+    <!-- 不需要执行的脚本，没有标记 -->
+    <script type="text/javascript">
+        console.log("Script 2 should not execute.");
+    </script>
+
+    <!-- 需要执行的脚本，带有自定义标记 -->
+    <script type="text/javascript" data-execute="true">
+        console.log("Script 3 executed.");
+    </script>
+</body>
+
+</html>

@@ -2,6 +2,7 @@
 <html>
 	<body>
 		<span>js耗时任务测试</span>
+		<canvas id="myCanvas"></canvas>
 		<script>
 		const worker=new Worker('worker.js');
 		worker.onmessage=function(event){
@@ -9,6 +10,33 @@
 			console.log(result)
 		}
 		worker.postMessage(15000)
+		// 终止worker
+		// worker.terminate()
+
+
+		// 如果浏览器中有两个或多个页面（或同一页上的多个 tab ！）试图从同一个文件 URL 创 建 Worker，那么最终得到的实际上是完全独立的 Worker。
+		// 在 Worker 内部是无法访问主程序的任何资源的。不能访问它的任何全局变量，也不能访问页面的 DOM 或者其他资源。记住，这是一个完全独立的线程。
+		// 但是，你可以执行网络操作（Ajax、WebSockets）以及设定定时器。还有，Worker 可以访问几个重要的全局变量和功能的本地复本，包括 navigator、location、JSON 和applicationCache。
+		// 你还可以通过 importScripts(..) 向 Worker 加载额外的 JavaScript 脚本,这些脚本加载是同步的。也就是说，importScripts(..) 调用会阻塞余下 Worker 的执行，直到文件加载和执行完成。
+
+		// 把 <canvas>API 暴露给 Worker，以及把 canvas 变 为 Transferable（参见 5.1.2 节），这将使 Worker 可以执行更高级的 off-thread图形处理，这对于高性能游戏（WebGL）和其他类似的应用是很有用的。
+			const canvas = document.getElementById('myCanvas').transferControlToOffscreen()
+			worker.postMessage({canvas}, [canvas])
+
+		// worker适合处理密集型数据计算，高流量网络通信
+
+		// 数据传递的问题
+		// 1、双向序列化导致的速度损失
+		// 2、两倍的内存使用
+		// 解决办法：
+		// 结构化克隆算法（structuredClone()）：把这个对象复制到另一边。这个算法非常高级，甚至可以处理要复制的对象有循环引用的情况。这样就不用付出 to-string 和 from-string 的性能损失了，但是这种方案还是要使用双倍的内存。
+		// https://developer.mozilla.org/en-US/docs/Web/API/structuredClone
+		// 使用Transferable对象：这时发生的是对象所有权的转移，数据本身并没有移动。一旦你把对象传递到一个 Worker 中，在原来的位置上，它就变为空的或者是不可访问的，这样就消除了多线程编程作用域共享带来的混乱。当然，所有权传递是可以双向进行的。
+		// https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Transferable_objects
+
+
+		// 多个tab用共享worker，sharedWorker
+		var w1 = new SharedWorker('woker.js')
 		</script>
 		<button onclick="worker.postMessage(15000)"> 执行耗时任务 </button>
 		<button onclick="javascript:console.log('click event')"> click </button>

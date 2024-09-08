@@ -1,10 +1,17 @@
 React源码
 Vue3
+
+源码+视频
+URL组成：
+
+
 webgl
 
-搭一个博客
+react/vue源码
+网络
 
-[]+[]:https://blog.csdn.net/weixin_30432179/article/details/94868337
+
+搭一个博客
 
 tree-shaking
 v8引擎
@@ -16,6 +23,8 @@ https://www.bilibili.com/video/BV1t34y1d7yA?p=30&vd_source=8e6dfd9fb6e70ce8104f6
 https://blog.csdn.net/m0_49635911/article/details/137932222
 
 import *
+
+https://juejin.cn/post/7398933999319990291
 
 Jsfuck 
 Js 1k
@@ -79,9 +88,21 @@ null和undefined在==情况下相等，和其他都不想等
 加法转字符串
 相等判断转数字
 null 和 undefined 不能够被封装（boxed），Object(null)和 Object() 均返回一个常规对象。
-""、"\n"（或者 " " 等其他空格组合）等空字符串被 ToNumber 强制类型转换为 0。
+""、"\n"（或者 " " 等其他空格组合）等空字符串被 ToNumber 强制类型转换为 0。null转number为0
 对象和数组的比较操作会先执行toPrimitive
 ReferenceError SyanxError TypeError URIError EvalError RangeError
+逗号运算符允许你在一行代码中执行多个表达式，并返回最后一个表达式的值。
+优先级：== > && > || > (?:) > =
+从高到低
+基本：x++,x--,
+一元：+(正号),-（负号）,!,++x,--x
+乘除：*,/,%
+加减：+,-
+关系和类型：<,>,<=,>=
+相等：==,!=
+逻辑与：&&
+逻辑或：||
+最后：=,*=,/=,%=,+=,-=
 
 # 取整数和小数
 console.log(parseInt(0.00000001));  // 1
@@ -241,3 +262,16 @@ patch：部分更新
 
 
 utc时间：协调世界时，又称世界统一时间、世界标准时间、国际协调时间。比北京时间慢8小时
+
+
+# script type
+<script type="module">
+<script type="importmap">
+
+
+作用域：查找变量的一种规则RHS LHS
+闭包：在函数运行完毕后继续访问这个函数作用域（其变量）的一种方法。
+
+上卷，class
+中卷，worker 288
+下卷，集合 188
