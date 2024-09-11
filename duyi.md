@@ -15,12 +15,11 @@ let obj = [{a: 1}, {b: 2}]
 console.log(obj)
 obj[0].a = 3
 console.log(obj)
+可以用debugger调试或者string输出
 
 
-chrome blink内核
 
-
-# 事件循环
+# 事件循环 
 浏览器的进程模型
 进程：程序运行需要有它自己专属的内存空间，可以把这块内存空间简单的理解为进程
 每个程序至少有一个进程，进程之间相互独立，即使要通信也要双方同意
@@ -40,7 +39,8 @@ chrome blink内核
 https://chromium.googlesource.com/chromium/src/+/main/docs/process_model_and_site_isolation.md#Modes-and-Availability
 
 
-# 渲染主线程，事件循环发生在这里
+## 渲染主线程，事件循环发生在这里
+
 渲染主线程是浏览器中最繁忙的线程，需要它处理的任务包括但不限于：
 解析HTML
 解析CSS
@@ -52,6 +52,10 @@ https://chromium.googlesource.com/chromium/src/+/main/docs/process_model_and_sit
 执行事件处理函数
 执行计时器的回调函数
 
+
+浏览器
+shell：外壳
+core：内核
 浏览器进程
     - 浏览器主进程
     - GPU进程
@@ -146,7 +150,7 @@ DOM树和Layout树不一定一一对应
 1、display：none，不存在Layout树
 2、::before，不存在DOM树
 
-内容必须在行盒中，行盒和块盒不能相邻，匿名行盒、匿名块盒
+**内容必须在行盒中，行盒和块盒不能相邻，匿名行盒、匿名块盒**
 
 
 Navigator(Gecko)
@@ -157,3 +161,83 @@ Safari(Webkit)
 Chrome(Webkit , Chromium , Blink)
 
 电脑：冯诺依曼
+
+
+# html
+超文本标记语言，描述页面结构
+
+问什么需要语义化？
+1、为了seo 搜索引擎优化
+2、为了让浏览器理解网页，阅读模式、语音模式
+
+
+# CSS
+css：层叠样式表，描述页面展示
+非衬线字体
+sans-serif
+行高设置纯数字，表示相对于当前元素的字体大小
+
+## css选择器
+1、后代 空格
+2、子 >
+3、后面相邻兄弟 +
+4、后面兄弟 ～
+
+## 层叠
+优先级：（XXXX）
+1.千位:如果是内联样式，记1，否则记O
+2.百位: 等于选择器中所有id选择器的数量
+3.十位:等于选择器中所有类选择器、属性选择器、伪类选择器的数量(:lvha,:last-child)
+4.个位: 等于选择器中所有元素选择器、伪元素选择器的数量(:after\:before)
+
+细节：之前是每位逢256进一，现在已经不再是256进一了，而是这几位数字分开存储互不影响
+同级按照原次序，靠后胜出
+
+1、重制样式表 reset.css
+2、爱恨法则：link visited hover active
+
+## 继承
+通常，和文字内容相关的属性都能继承
+P元素默认背景透明
+
+## 属性值计算过程
+
+**渲染每个元素的前提条件：该元素的所有css属性必须有值**
+
+一个元素，从所有属性都没有值到所有属性都有值的过程
+四个步骤：
+1、确定声明值：参考样式表中（作者样式表、浏览器样式表）没有冲突的声明，作为css属性
+2、层叠冲突：对样式表有冲突的声明使用层叠规则，确定CSS属性值，比较重要性，比较特殊性，比较源次序
+3、使用继承：对仍然没有值的属性，使用继承
+4、使用默认值
+
+a元素的浏览器样式表color:-webkit-link，所以他的颜色不继承
+
+inherit：手动继承
+initial：初始值，将属性设置为默认值
+
+## 盒模型
+每个元素在页面中都会生成一个矩形区域
+行盒不换行，块盒换行
+display默认inline
+
+从内到外
+1、内容：content，width和height设置的是内容的宽高，内容盒 content-box
+2、填充；pending，填充区+内容区=填充盒 pending-box
+3、边框：border，边框默认样式为none，边框颜色默认按照字体颜色，边框区+填充区+内容区=边框盒 border-box
+4、外边距：margin，边框到其他盒子的距离
+
+
+## 字体
+
+@font-face {
+    font-family: '';
+    src: url('.ttf');
+}
+‌OTF (OpenType Font)‌：由‌Adobe和‌Microsoft联合开发，采用Unicode编码，支持多种语言和平台。OTF字体文件可以包含TrueType或PostScript字体，具有跨平台兼容性，支持大字符集和版权保护。
+‌TTF (TrueType Font)‌：由Apple和Microsoft共同开发，主要用于电脑轮廓字体。TTF字体文件体积较大，但提供高级控制和兼容性较好，支持多种操作系统。
+‌WOFF (Web Open Font Format)‌：专为网页设计，采用压缩技术减少文件大小。WOFF支持TrueType和OpenType字体，包含元信息和授权信息，被现代浏览器广泛支持。
+
+OTF：设计用于跨平台和多语言支持，包含多种字体类型。
+TTF：主要用于电脑操作系统中的字体显示。
+WOFF：专为网页设计，优化文件大小和兼容性。

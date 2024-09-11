@@ -14,8 +14,6 @@ promise instanceof Promise
 1、promise可能是通过其他窗口传过来
 2、一些第三方库自己实现了Promise
 
-除了resolve、reject不需要return，其他传值需要用return
-
 new Promise( function(..){ .. } )
 传入的函数会立即执行
 
