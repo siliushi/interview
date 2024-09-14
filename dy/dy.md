@@ -1,4 +1,6 @@
-真随机：物理世界
+[toc]
+
+# 真随机：物理世界
 计算机01的二进制，如果要在计算机里面实现真随机需要借助设备，比如光电、量子等
 伪随机
 - 种子
@@ -6,11 +8,11 @@ Java里的 new Random(种子)
 JS：Math.random() // 浏览器自带种子
 - 动态概率
 
-用void 0代替undefined
+# 用void 0代替undefined
 null等关键字不能被当成变量使用，但是undefined可以被赋值，window下面是只读的，但是局部作用域是可写的
 
 
-console.log显示的问题，当显示一个复杂数据，浏览器为了优化性能，折叠输出，当点击展开是才会真正读区变量
+# console.log显示的问题，当显示一个复杂数据，浏览器为了优化性能，折叠输出，当点击展开是才会真正读区变量
 let obj = [{a: 1}, {b: 2}]
 console.log(obj)
 obj[0].a = 3
@@ -228,6 +230,18 @@ display默认inline
 4、外边距：margin，边框到其他盒子的距离
 
 
+## 盒模型应用
+
+### content-box
+
+设计稿是border-box，设置box-sizing: border-box
+
+### 背景
+
+background-clip:border-
+
+
+
 ## 字体
 
 @font-face {
@@ -241,3 +255,11 @@ display默认inline
 OTF：设计用于跨平台和多语言支持，包含多种字体类型。
 TTF：主要用于电脑操作系统中的字体显示。
 WOFF：专为网页设计，优化文件大小和兼容性。
+
+## checkbox
+CSS 是没办法直接定义 input/checkbox 元素的 color 和 background-color 属性的，一种比较优雅的方式是采用伪元素。
+ appearance:none
+
+
+currentColor
+a color: -webkit-link

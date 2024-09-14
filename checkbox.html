@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            padding: 0;
+        }
+
+        li {
+            color: #008080;
+            list-style: none;
+        }
+
+        li:nth-child(2n + 1) {
+            color: #000080;
+        }
+
+        li:hover {
+            color: red;
+        }
+
+        input[type=checkbox] {
+            position: relative;
+            color: inherit;
+        }
+
+        input[type=checkbox]::before,
+        input[type=checkbox]::after {
+            position: absolute;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        input[type=checkbox]:checked::after {
+            content: 'x';
+            color: white;
+        }
+
+        input[type=checkbox]::before {
+            content: ' ';
+            background-color: currentColor; /* 将背景色设置为当前的文字颜色值 */
+        }
+        /* input[type=checkbox] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: red;
+            color: red;
+            border: 1px solid red;
+        } */
+    </style>
+</head>
+<body>
+    <!-- checkbox 的背景颜色可能不生效是因为 input 元素的默认样式通常由浏览器控制，特别是像 checkbox 这样的小部件。要改变 checkbox 的背景颜色，不能像改变普通 HTML 元素一样简单，因为这些控件并没有直接接受 CSS 的 background-color 属性。 -->
+    <!-- 1、使用 appearance: none 来去除浏览器的默认样式 -->
+    <!-- 2、使用伪元素 -->
+    <ul>
+        <li><input type="checkbox">第1项</li>
+        <li><input type="checkbox">第2项</li>
+        <li><input type="checkbox">第3项</li>
+        <li><input type="checkbox">第4项</li>
+        <li><input type="checkbox">第5项</li>
+        <li><input type="checkbox">第6项</li>
+    </ul>
+</body>
+
+</html>

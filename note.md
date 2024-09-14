@@ -12,7 +12,7 @@ react/vue源码
 
 
 URLSearchParams:https://blog.csdn.net/qq_72935001/article/details/131154797
-
+网络是怎么连接的：https://zhuanlan.zhihu.com/p/535811369
 搭一个博客
 
 tree-shaking
@@ -107,6 +107,7 @@ ReferenceError SyanxError TypeError URIError EvalError RangeError
 最后：=,*=,/=,%=,+=,-=
 
 # 取整数和小数
+## 取整数
 console.log(parseInt(0.00000001));  // 1
 console.log(parseInt(9000000000000000000000)); // 9
 这是因为，0.00000001.toString() === 1e-8而1000000000000000000000..toString() === 1e+21。
@@ -121,6 +122,9 @@ let num = 3.75;
 console.log(num | 0); // 3
 num = -num;
 console.log(num | 0); // -3
+## 取小数
+console.log(3.75 % 1); // 0.75
+console.log(-3.75 % 1); // -0.75
 
 # BroadcastChannel
 BroadcastChannel只能用于同源的页面之间进行通信，而window.postMessage却可以用于任何的页面之间
@@ -167,7 +171,6 @@ https://blog.csdn.net/musio777/article/details/135964396
 优化浏览器主线程：https://blog.csdn.net/wangfeijiu/article/details/137948341
 
 
-// 周六
 //webpack: https://juejin.cn/post/7170852747749621791#heading-2
 // https://juejin.cn/post/6893097741258326030
 // https://zhuanlan.zhihu.com/p/635396848
@@ -277,6 +280,8 @@ utc时间：协调世界时，又称世界统一时间、世界标准时间、�
       }
 </script>
 
+动态生成js内容，可以通过import()引入
+
 
 作用域：查找变量的一种规则RHS LHS
 闭包：在函数运行完毕后继续访问这个函数作用域（其变量）的一种方法。
@@ -300,3 +305,28 @@ utc时间：协调世界时，又称世界统一时间、世界标准时间、�
 415 （不支持的媒体类型） 请求的格式不受请求页面的支持。
 416 （请求范围不符合要求） 如果页面无法提供请求的范围，则服务器会返回此状态代码。
 417 （未满足期望值） 服务器未满足”期望”请求标头字段的要求。
+
+
+# getElementBy与querySelector
+getElement(s)Byxxxx 获取的是动态集合，querySelector 获取的是静态集合。
+动态就是选出的元素会随文档改变，静态的不会 取出来之后就和文档的改变无关了。
+querySelector：[object NodeList] CSS选择器
+getElementBy：[object HTMLCollection] 单一的ClassName tagName id
+
+
+
+# URLSearchParams
+https://blog.csdn.net/qq_72935001/article/details/131154797
+
+# 禁止开发者操作网页上的DOM对象
+1、用worker隔离
+```
+function execturCode(code) {
+    let b = new Blob([code])
+    let url = URL.createObjectURL(b)
+    const worker = new Worker(url);
+    return worker;
+}
+```
+2、ShadowDOM
+document.body.attachShadow({mode: 'closed'});
