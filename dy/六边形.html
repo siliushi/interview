@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            
+        
+        html {
+            overflow: hidden;
+            --n: 10;
+            --size: 11vw;
+            --hsize: -5vw;
+        }
+        .line {
+            display: flex;
+            margin-top: -2.5vw;
+        }
+        .line:nth-child(even) {
+            transform: translateX(var(--hsize))
+        }
+        .item {
+            flex-shrink: 0;
+            width: var(--size);
+            height: var(--size);
+            background: rgba(0,0,0, 0.5);
+            border: 1px solid red;
+            clip-path: polygon(49% 6%, 92% 25%, 92% 75%, 49% 94%, 9% 74%, 8% 25%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="line">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="line">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+        <div class="line">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+</body>
+</html>

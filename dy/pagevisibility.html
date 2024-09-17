@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function count() {
+            let n = 0;
+            // 当浏览器切换tab时，之前页面的复杂耗时的操作优化最少1s中执行一次
+            const timer = setInterval(() => {
+                console.log(n);
+                n++;
+                if(n > 200) {
+                    clearInterval(timer);
+                }
+            }, 10)
+        }
+        count();
+
+        document.addEventListener('vibisilitychange', () => {
+            if(document.hidden) {
+                // 页面隐藏
+            }
+        })
+    </script>
+</body>
+</html>

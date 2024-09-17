@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background: #191c29;
+    }
+    
+    .card {
+        width: 200px;
+        height: 400px;
+        margin: 0 auto;
+        border-radius: 6px;
+        position: relative;
+    }
+    
+    .card::before {
+        content: '';
+        position: absolute;
+        inset: 0px;
+        background: inherit;
+        border-radius: inherit;
+        z-index: -1;
+        filter: blur(20px);
+    }
+    .card::after {
+        content: '';
+        position: absolute;
+        inset: 8px;
+        background: #191c29;
+        border-radius: inherit;
+    }
+    /* 通过houdini自定义css属性，可以受开发者控制 */
+    @property --direc {
+        syntax: '<angle>';
+        initial-value: 0deg;
+        inherits: false;
+    }
+    .card {
+        --direc: 0deg;
+        /* 浏览器渲染渐变背景的时候不受开发者干预的 */
+        /* css提供了houdini api */
+        background-image: linear-gradient(var(--direc), #5ddcff, #3c67e3, 43%, #4e00c2);
+        animation: spin 3s linear infinite
+    }
+    @keyframes spin {
+        to {
+            --direc: 360deg;
+        }
+    }
+</style>
+<body>
+    <div class="content">
+        <div class="card"></div>
+    </div>
+</body>
+</html>

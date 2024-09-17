@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 深色 */
+        html[data-theme='dark'] {
+            --text-color: #fff;
+            --bg1: #102128;
+            --bg2: #2d5567;
+        }
+        /* 默认亮色主题 */
+        :root {
+            --text-color: #333;
+            --bg1: #c7ffdd;
+            --bg2: #fbd988;
+        }
+        @media (prefers-color-scheme: dark) {
+            /* 匹配到系统主题为dark */
+        }
+        @media (prefers-color-scheme: light) {
+            /* 匹配到系统主题为light */
+        }
+        .test {
+            width: 200px;
+            height: 200px;
+            background-color: var(--bg1);
+        }
+    </style>
+</head>
+<body>
+    <div class="test"></div>
+    <script>
+        // light dark
+        document.documentElement.dataset.theme = 'light'
+
+        // 可以用js实现系统主题
+       const match = matchMedia('(prefers-color-scheme: dark)')
+       if(match.matches) {
+            document.documentElement.dataset.theme = 'light'
+       } else {
+            document.documentElement.dataset.theme = 'dark'
+       }
+       match.addEventListener('change', () => {
+        if(match.matches) {
+            document.documentElement.dataset.theme = 'light'
+       } else {
+            document.documentElement.dataset.theme = 'dark'
+       }
+       })
+    </script>
+</body>
+</html>

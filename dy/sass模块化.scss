@@ -1,0 +1,15 @@
+// @import 运行时，建议
+@import url("xxx.css")
+// @import 编译时
+// 不建议：1、混淆，2、污染，3、没有私有
+@import './混合.scss';
+
+
+// 编译时模块化建议用@use，且带有命名空间，common.color
+@use 'xxx/common.scss' as a;
+
+// 上面还是没有解决命名冲突的问题，可以加as重新定义命名空间
+@use 'xx/a/common.scss' as b;
+
+// 私有属性，属性前面加下划线
+$_n:1;

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- appication/octet-stream -->
+</head>
+<body>
+    <!-- multipart/form-data -->
+    <!-- base64 26个小写 26个大写 10个数字 +/ data:image/jpeg;base64, -->
+    <!-- blob -->
+     <input type="file">
+     <!-- multiple webkitdirectory mozdirectory odirectory-->
+
+     <script>
+        function uploadForm(file){
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                // const resp = JSON.parse(xhr.responseText);
+                // onFinish(resp);
+            };
+            xhr.upload.onprogress = (e) => {
+                const percent = Math.floor((e.loaded / e.total) * 180);
+                // onProgress(percent);
+            }
+            xhr.open( 'POST', 'http://test.com:9527/unload/single') ;
+            const form = new FormData();
+            form.append('avatar', file);
+            xhr.send( form) ;
+            return function () {
+                xhr.abort();
+            };
+        }
+        // 二进制上传
+        function uploadBinary(file){
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                // const resp = JSON.parse(xhr.responseText);
+                // onFinish(resp);
+            };
+            xhr.upload.onprogress = (e) => {
+                const percent = Math.floor((e.loaded / e.total) * 180);
+                // onProgress(percent);
+            }
+            xhr.open( 'POST', 'http://test.com:9527/unload/single') ;
+            xhr.setRequestHeader('content-type', 'application/octet-stram');
+            xhr.setRequestHeader('x-ext', '.'+file.name.split('.').pop())
+            xhr.send(file);
+            return function () {
+                xhr.abort();
+            };
+        }
+
+        function uploadBase64(file) {
+            const ext = '.' + file.name.split('.')[1]
+            const reader = new FileReader();
+            const xhr = new XMLHttpRequest();
+            reader.onload = (e) => {
+                const avatar = e.target.result.split(',')[1]
+                xhr.onload = function () {
+                    // const resp = JSON.parse(xhr.responseText);
+                    // onFinish(resp);
+                };
+                xhr.upload.onprogress = (e) => {
+                    const percent = Math.floor((e.loaded / e.total) * 180);
+                    console.log(percent)
+                    // onProgress(percent);
+                }
+                xhr.open( 'POST', 'http://test.com:9527/unload/single') ;
+                xhr.setRequestHeader('content-type', 'application/json')
+                xhr.send(JSON.stringify({
+                    ext,
+                    avatar
+                })) ;
+            }
+            reader.readAsDataURL(file);
+            
+            return function () {
+                xhr.abort();
+            };
+        }
+        function uploadBlob(file) {
+            const ext = '.' + file.name.split('.')[1]
+            const reader = new FileReader();
+            const xhr = new XMLHttpRequest();
+            reader.onload = (e) => {
+                const blob = new Blob([e.target.result], { type: file.type });
+                console.log(blob)
+                xhr.onload = function () {
+                    // const resp = JSON.parse(xhr.responseText);
+                    // onFinish(resp);
+                };
+                xhr.upload.onprogress = (e) => {
+                    const percent = Math.floor((e.loaded / e.total) * 180);
+                    // onProgress(percent);
+                }
+                xhr.open( 'POST', 'http://test.com:9527/unload/single') ;
+                xhr.setRequestHeader('content-type', 'application/json')
+                xhr.send(JSON.stringify({
+                    ext,
+                    avatar: blob
+                })) ;
+            }
+            reader.readAsDataURL(file);
+            
+            return function () {
+                xhr.abort();
+            };
+        }
+        const inp = document.querySelector('input[type=file]')
+        inp.onchange = (e) => {
+            uploadBlob(e.target.files[0])
+        }
+     </script>
+</body>
+</html>

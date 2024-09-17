@@ -185,6 +185,25 @@ console.log(getType(function a() {}))
 //     }
 // }
 
+function bigSum(a, b) {
+    let result = [];
+    const len = Math.max(a.length, b.length);
+    a = a.padStart(len, '0')
+    b = b.padStart(len, '0')
+    let carry = 0;
+    for(let i = len - 1; i >= 0; i--) {
+        const item = Number(a[i]) + Number(b[i]) + Number(carry)
+        result[i] = item % 10;
+        console.log(item % 10)
+        carry =  item/10| 0;
+    }
+    if(carry) {
+        result[len] = carry;
+    }
+    return result.join('');
+}
+console.log(bigSum('2424242424242424234534535', '7567575756756757575675756757'))
+
 
 // 深度去重
 function deepUnique(arr) {

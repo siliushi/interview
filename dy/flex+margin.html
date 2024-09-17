@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 800px;
+            height: 60px;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .item {
+            width: 20px;
+            height: 20px;
+            border: 1px solid red
+        }
+        /*  */
+        .container1 {
+            width: 800px;
+            height: 60px;
+            background: #333;
+            display: flex;
+        }
+        .item1 {
+            margin: auto;
+            width: 20px;
+            height: 20px;
+            border: 1px solid red
+        }
+        .container2 {
+            width: 800px;
+            height: 60px;
+            background: #333;
+            display: flex;
+        }
+        .item2 {
+            width: 20px;
+            height: 20px;
+            border: 1px solid red;
+        }
+
+        .container3 {
+            width: 200px;
+            height: 60px;
+            background: #333;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .item3 {
+            --n: 3;
+            --gap: calc((100% - 20px * var(--n)) / var(--n) / 2);
+            margin: 10px var(--gap);
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item"></div>
+    </div>
+    <!-- 用margin: auto实现水平垂直居中,margin会吃掉弹性盒剩下的空间 -->
+    <div class="container1">
+        <div class="item1"></div>
+    </div>
+    <!-- margin:auto实现间隔排列 -->
+     <div class="container1">
+        <div class="item1"></div>
+        <div class="item1"></div>
+        <div class="item1"></div>
+        <div class="item1"></div>
+     </div>
+     <!-- margin实现任意一个元素右对齐 -->
+      <div class="container2">
+        <div class="item2"></div>
+        <div class="item2" style="border-color: green;"></div>
+        <div class="item2" style="border-color: blue;margin-left:auto;"></div>
+        <div class="item2"></div>
+      </div>
+      <div class="container3">
+        <div class="item3"></div>
+        <div class="item3" style="border-color: green;"></div>
+        <div class="item3" style="border-color: blue;"></div>
+        <div class="item3"></div>
+        <div class="item3" style="border-color: green;"></div>
+        <div class="item3" style="border-color: blue;"></div>
+        <div class="item3"></div>
+        <div class="item3" style="border-color: green;"></div>
+        <div class="item3" style="border-color: blue;"></div>
+        <div class="item3"></div>
+        <div class="item3" style="border-color: green;"></div>
+        <div class="item3" style="border-color: blue;"></div>
+        <div class="item3"></div>
+        <div class="item3" style="border-color: green;"></div>
+        <div class="item3" style="border-color: blue;"></div>
+        <div class="item3"></div>
+        <div class="item3" style="border-color: green;"></div>
+        <div class="item3" style="border-color: blue;"></div>
+        <div class="item3"></div>
+      </div>
+</body>
+</html>

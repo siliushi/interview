@@ -1,0 +1,42 @@
+// sass中的扩展和占位符
+@mixin common {
+    margin: 1em 0;
+    font-size: 0.8em;
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.tip {
+    @include common;
+}
+.tip-warning {
+    @include common;
+    color: red;
+}
+
+// 上面的看着没什么问题，但是编译出来会很有很多重复代码
+// @include 组合
+// @extend 继承
+.tip {
+    margin: 1em 0;
+    font-size: 0.8em;
+    opacity: 0.8;
+    text-decoration: underline;
+}
+.tip-warning {
+    @extend tip;
+    color: red;
+}
+
+// 上面的代码编译出来会有一个tip，如果实际样式中没用，可以用占位符解决
+// 占位符相当于抽象类
+%tip {
+    margin: 1em 0;
+    font-size: 0.8em;
+    opacity: 0.8;
+    text-decoration: underline;
+}
+.tip-warning {
+    @extend %tip;
+    color: red;
+}

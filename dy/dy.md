@@ -1,5 +1,23 @@
 [toc]
 
+# 零宽字符或者幽灵字符
+
+# 3种编程思想
+OOP 面向对象编程 Object Orient edPrograming
+关注整个程序里的事物
+FOP 面向函数编程 Function Oriented Programing
+关注整个程序里的运算
+POP 面向过程编程 Procedure Oriented Programing
+按照步骤，一步一步编程
+
+
+
+# 访问器 待确认？对象的方法的,属性和方法
+第一种：传统的函数表达式，obj.get()
+get: function() {}
+第二种：ES6中的一种语法糖，obj.get
+get() {}
+
 # 真随机：物理世界
 计算机01的二进制，如果要在计算机里面实现真随机需要借助设备，比如光电、量子等
 伪随机
@@ -10,6 +28,82 @@ JS：Math.random() // 浏览器自带种子
 
 # 用void 0代替undefined
 null等关键字不能被当成变量使用，但是undefined可以被赋值，window下面是只读的，但是局部作用域是可写的
+
+
+# 面向对象
+面向对象就是对具象世界的抽象表达，过程就叫面向对象设计，将设计转换成具体的类的过程叫做面向对象编程
+
+# CSS
+- 混合占位
+- houdini
+- filter
+filter给图片像素加阴影，box-shadow是给整个盒子加阴影
+滤镜，针对元素中的像素点进行计算
+blur(10px)高斯模糊算法
+hue-rotate(45deg)
+grayscale(1)黑白
+filter：可以组合
+backdrop-filter磨砂玻璃
+- clip-path
+裁剪，可以把元素裁剪成任意想要的形状
+inset、circle、ellips、polygon
+- 模块化，用@import导入
+- stick黏性定位
+ 包含块
+ 最近可滚动元素
+- border-image
+    border-image-slice 数字
+    border-image-repeat
+- write-mode：lr, margin-block-start: -30px; 数字作为一个整体：text-combine-upright: all;
+- p元素有隔行
+- 图片裁剪上传
+    - FileReader
+    - canvas drawImage
+    - 拖拽e.dataTransfer.items，选择：e.target.files
+- 动画，数字经过一段时间便成另一个数字
+- 时间函数
+
+
+CSS预编译器/前处理器  CSS后处理器
+前处理：Sass、Less、Stylus
+后处理器： cssnano(css压缩)、purgecss(去掉没用的css)、autoprefix
+
+# pagevisibility
+当浏览器切换tab时，之前页面的复杂耗时的操作优化最少1s中执行一次
+
+# 判断奇偶，求模，求余
+function isOdd(n) {
+    // 判断是否时奇数
+    return n % 2 === 1 || n % 2 === -1;
+}
+console.log(isOdd(-3))
+余数都是使用的欧几里德的求余法
+a % b = a - b * p
+p = a/b的整数部分
+5 % 2 = 5 - 2 * (5/2) = 1
+-5 % 2 = -5 - 2 * (-5/2) = -1
+
+求模
+a mod b = a - b * p
+p: a/b的商（向下取整）
+-5 mod 2 = -5 - 2 * (-5/2) = 1
+
+
+# TS
+类型演算
+
+# 高阶函数
+传入一个或多个函数，返回一个函数。表达的是运算的缺失和延续
+
+# 滤镜
+**故障波纹动效**
+湍流滤镜 Perlin noise
+canvas
+css
+svg
+# Audio
+音频上下文 AudioContext
+处理节点
 
 
 # console.log显示的问题，当显示一个复杂数据，浏览器为了优化性能，折叠输出，当点击展开是才会真正读区变量
@@ -202,7 +296,7 @@ sans-serif
 通常，和文字内容相关的属性都能继承
 P元素默认背景透明
 
-## 属性值计算过程
+## 属性值计算过程 Computing Style
 
 **渲染每个元素的前提条件：该元素的所有css属性必须有值**
 
@@ -217,6 +311,8 @@ a元素的浏览器样式表color:-webkit-link，所以他的颜色不继承
 
 inherit：手动继承
 initial：初始值，将属性设置为默认值
+
+## 视觉格式化模型 Visual Formatting Model
 
 ## 盒模型
 每个元素在页面中都会生成一个矩形区域
@@ -239,7 +335,6 @@ display默认inline
 ### 背景
 
 background-clip:border-
-
 
 
 ## 字体

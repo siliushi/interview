@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span>2999.00</span>
+    <button class="btn">打折</button>
+    <script>
+        const span = document.querySelector('span')
+        const btn = document.querySelector('.btn')
+        function price(value) {
+            span.innerText = '价格：' + value;
+        }
+        btn.onclick = function() {
+            animation(5000, 2999, 299, price);
+        }
+        function animation(duration, from, to, callback) {
+            const dis = to - from;
+            const speed = dis / duration;
+            let startTime = Date.now();
+            
+            let value = from;
+
+            function _run() {
+                const now = Date.now();
+                const time = now - startTime;
+                if(time >= duration) {
+                    value = to;
+                    callback(value);
+                    return;
+                }
+                const d = time * speed;
+                value = from + d
+                callback(value | 0);
+                requestAnimationFrame(_run)
+            }
+            requestAnimationFrame(_run);
+        }
+    </script>
+</body>
+</html>

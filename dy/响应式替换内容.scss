@@ -1,0 +1,14 @@
+$max: 1920px;
+$words: 'asdfg', 'bsdfg', 'csdfg';
+.be::after {
+    content: 'be abc';
+    font-size: 10vw;
+    text-shadow: 1px 1px 4px #333;
+    text-transform: uppercase;
+    @each $word in $words {
+        @media screen and (max-width: $max) {
+            content: '#{$word}';
+        }
+    }
+    $max: $max - 10px;
+}

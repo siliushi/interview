@@ -4,11 +4,32 @@ Vue3
 源码+视频
 URL组成：
 
-
 webgl
 
 react/vue源码
 网络
+
+函数式编程：compose/pipe
+
+# 面试题
+第一题：连续赋值
+var a = {n: 1}; // a在栈，对象在堆
+var b = a;
+a.x = a = {n :2};
+console.log(a.x)
+console.log(b.x)
+console.log(a)
+
+第二题：a++，对象键顺序：数字字符symbol
+const obj = {
+    a: 0,
+};
+obj['1'] = 0;
+obj[++obj.a] = obj.a++;
+const values = Object.values(obj);
+obj[values[1]] = obj.a;
+console.log(obj);
+
 
 
 URLSearchParams:https://blog.csdn.net/qq_72935001/article/details/131154797
@@ -330,3 +351,30 @@ function execturCode(code) {
 ```
 2、ShadowDOM
 document.body.attachShadow({mode: 'closed'});
+
+
+# CSS
+initial
+inherit
+属性计算过程 Computing Style
+- 声明：作者样式表、浏览器默认样式表
+- 层叠：解决样式冲突
+    - 优先级
+        - 作者样式表 !important
+        - 浏览器样式表 !important
+        - 作者普通样式
+        - 浏览器样式
+    - 特定性
+        （0或1，？，？，？）
+    - 源次序
+- 继承
+- 默认
+
+
+# 网络
+navigator.connection
+window.addEventListener('online', function() {})
+window.addEventListener('offline', function() {})
+navigator.connection.addEventListener('change', function() {})
+
+

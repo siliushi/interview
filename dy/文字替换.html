@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html {
+            background-attachment: fixed;
+            height: 100%;
+        }
+        body {
+            background: radial-gradient(rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%) center top/cover;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            padding-top: 100px;
+            box-sizing: border-box;
+        }
+        .be::after {
+            content: 'be abc';
+            font-size: 10vw;
+            text-shadow: 1px 1px 4px #333;
+            text-transform: uppercase;
+        }
+        @media screen and (max-width: 600px) {
+            .be::after {
+                content: 'ae abc';
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="be"></h1>
+</body>
+</html>
