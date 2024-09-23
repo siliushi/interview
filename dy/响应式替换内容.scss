@@ -9,6 +9,6 @@ $words: 'asdfg', 'bsdfg', 'csdfg';
         @media screen and (max-width: $max) {
             content: '#{$word}';
         }
+        $max: $max - 10px;
     }
-    $max: $max - 10px;
 }

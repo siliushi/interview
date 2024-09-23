@@ -17,3 +17,4 @@ declare function addImpl<T extends JSTypeName[]>(
 
 // 前面参数不定量 a-string b-boolean c-number
 addImpl('string', 'boolean', 'number', (a,b,c) => {});
+

@@ -5,7 +5,7 @@
  */
 function paralleTask(tasks, paralleCount = 2) {
     return new Promise(resolve => {
-        if(this.length === 0) {
+        if(tasks.length === 0) {
             resolve();
             return;
         }

@@ -4,6 +4,20 @@ let text;
 console.log(text ?? '-')
 console.log(text || '-')
 
+// 联合类型与文献（字面量）类型
+// 定义变量：any与unknown
+// 函数返回值：void不存在 undefined没有初始值 never永远不会执行完
+
+// 字面量类型
+let literal : 1 | 2 | 3;
+
+// 类型断言
+let message: any
+message = "abc"
+message.endsWidth("c")
+(<string>message).endsWidth('d')
+(message as string).endsWidth('d')
+
 
 // !! 判断某个变量是否存在。第一个 ! 作用于变量，使其转换为布尔类型，并且取反；第二个 ! 再次取反，得到真正的布尔值。空数组和空对象使用 !!， 返回 true
 
@@ -1726,7 +1740,7 @@ console.log(d1 === d2)
 const aaa = 1;
 // export default aaa;
 
-// export default function test111() {}
+// export default function 221() {}
 // export default class test11 {}
 // export default {}
 

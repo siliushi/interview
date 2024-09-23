@@ -44,7 +44,7 @@
                 // onProgress(percent);
             }
             xhr.open( 'POST', 'http://test.com:9527/unload/single') ;
-            xhr.setRequestHeader('content-type', 'application/octet-stram');
+            xhr.setRequestHeader('content-type', 'application/octet-stream');
             xhr.setRequestHeader('x-ext', '.'+file.name.split('.').pop())
             xhr.send(file);
             return function () {

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function download(res) {
+            if(res.type === 'application/oct-stream') {
+                const blob = new Blob([content]);
+                const fileName = 'test.doc';
+                if('download' in document.createElement('a')) {
+
+                }
+            }
+            if(res.type === 'application/json') {
+                const reader = new FileReader();
+                reader.readAsText(res, 'uft-8');
+                reader.onload = function(e) {
+                    const json = JSON.parse(e.target.result);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

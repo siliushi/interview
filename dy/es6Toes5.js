@@ -26,6 +26,9 @@ Product.count = 0;
 Product.prototype.increase = function() {
     this.number++;
 }
+Product.prototype.totalPrice = function() {
+    return this.number * this.unitPrice;
+}
 
 // 第一点：上面的代码会有函数提升，但是class没有提升，通过立即执行函数解决
 // 第二点：class必须用new调用，es6可以通过new.target判断
