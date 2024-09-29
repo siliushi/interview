@@ -12,11 +12,11 @@
     <script>
         // globalThis === window   web environment
         // globalThis === global   node.js
-        // globalThis === self     webworker  WorkerGolbalScope
+        // globalThis === self     webworker serviceworker WorkerGolbalScope
         globalThis.genRandomNumbers = () => {
             // crypto
             const array = new Uint32Array(1);
-            globalThis.crypto.getRandomValues(array);
+            console.log(globalThis.crypto.getRandomValues(array));
 
             const randText = document.getElementById("myRandText");
             randText.innerHTML = `随机数为：${array.join(" ")} <br> UUID: ${globalThis.crypto.randomUUID()}`;
@@ -41,7 +41,7 @@
         // getSelection
         // alert(window.prompt())
 
-        // 设别方向切换时触发
+        // 设置方向切换时触发
         window.addEventListener("orientationchange", function () {
             console.log(
                 "the orientation of the device is now " + screen.orientation.angle,

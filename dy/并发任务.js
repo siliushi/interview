@@ -1,3 +1,37 @@
+async function executeTasksConcurrentlyWithLimit(tasks, limit) {
+    const results = [];
+    const executing = new Set();
+
+    const enqueue = async (task) => {
+        const promise = task().then(result => {
+            results.push(result);
+            executing.delete(promise);
+        });
+        executing.add(promise);
+
+        if (executing.size >= limit) {
+            await Promise.race(executing); // 等待其中一个任务完成
+        }
+    };
+
+    await Promise.all(tasks.map(task => enqueue(task)));
+
+    return results;
+}
+
+// 示例用法
+const task1 = () => new Promise(resolve => setTimeout(() => resolve('Task 1 completed'), 1000));
+const task2 = () => new Promise(resolve => setTimeout(() => resolve('Task 2 completed'), 500));
+const task3 = () => new Promise(resolve => setTimeout(() => resolve('Task 3 completed'), 2000));
+const task4 = () => new Promise(resolve => setTimeout(() => resolve('Task 4 completed'), 1500));
+
+executeTasksConcurrentlyWithLimit([task1, task2, task3, task4], 2)
+    .then(results => console.log('All tasks completed:', results))
+    .catch(error => console.error('Some tasks failed:', error));
+
+
+
+
 /**
  * 
  * @param {Function[]} tasks 

@@ -265,7 +265,7 @@ var m = 1; var n =2;
 function foo1(x:number, y:number, z:number) {
     console.log(x, y, z);
 }
-const args = [0, 1, 2] as const
+let args = [0, 1, 2] as const
 // A spread argument must either have a tuple type or be passed to a rest parameter.
 foo1(...args); 
 
@@ -990,7 +990,7 @@ const Arr :ReadonlyArray<number> = [0, 1,2]
 const FR: {readonly bar: number} = {
     bar: 123
 }
-function iMutateFoo(foo: {bar: number}) {
+function iMutateFoo(foo: {bar: number} = {bar: 1}) {
     foo.bar = 345;
 }
 iMutateFoo(FR);
