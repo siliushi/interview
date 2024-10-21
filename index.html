@@ -5,11 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .offscreen {
+            position: absolute;
+            margin-top: -9999px;
+        }
+    </style>
 </head>
 
 <body>
     <input type="text" id="test">
     <div id="val"></div>
+    <button aria-labelledby=“invite_1_accept”>test</button>
+    <span class=“offscreen” id=“invite_1_accept”>accept invitation from Amy Jones Accept</span>
     <!-- <div id="div1">123123</div> -->
     <script>
         const test = document.getElementById('test');

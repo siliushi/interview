@@ -279,7 +279,7 @@ Function.prototype.myCall = function(context, args) {
 // bind-在通过bind改变this指向的时候所传入的参数会拼接在调用返回函数所传参数之前，多余参数不起作用。
 
 // promise
-class MyPromise {
+class Promise {
     // 主要组成部分解释：
     // 状态 (state): Promise 实例有三种状态：
     
@@ -292,84 +292,134 @@ class MyPromise {
     
     // then 方法: 用于注册成功和失败回调函数。根据当前 Promise 的状态，立即调用相应的回调函数，或者将其放入队列等待后续调用。
     constructor(executor) {
-        // 初始状态为 pending
-        this.state = 'pending';
+        this.status = 'pending';
         this.value = undefined;
         this.reason = undefined;
         this.onFulfilledCallbacks = [];
         this.onRejectedCallbacks = [];
 
-        // resolve 函数
         const resolve = (value) => {
-            if (this.state === 'pending') {
-                this.state = 'fulfilled';
+            if (this.status === 'pending') {
+                this.status = 'fulfilled';
                 this.value = value;
                 this.onFulfilledCallbacks.forEach(fn => fn());
             }
         };
 
-        // reject 函数
         const reject = (reason) => {
-            if (this.state === 'pending') {
-                this.state = 'rejected';
+            if (this.status === 'pending') {
+                this.status = 'rejected';
                 this.reason = reason;
                 this.onRejectedCallbacks.forEach(fn => fn());
             }
         };
 
-        // 执行 executor，并捕获异常
         try {
             executor(resolve, reject);
-        } catch (error) {
-            reject(error);
+        } catch (err) {
+            reject(err);
         }
     }
 
-    // then 方法
     then(onFulfilled, onRejected) {
-        // 返回一个新的 Promise
-        return new MyPromise((resolve, reject) => {
-            if (this.state === 'fulfilled') {
+        onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
+        onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason; };
+        return new Promise((resolve, reject) => {
+            if (this.status === 'fulfilled') {
                 try {
-                    const x = onFulfilled(this.value);
+                    let x = onFulfilled(this.value);
                     resolve(x);
-                } catch (error) {
-                    reject(error);
+                } catch (err) {
+                    reject(err);
                 }
-            } else if (this.state === 'rejected') {
+            }
+
+            if (this.status === 'rejected') {
                 try {
-                    const x = onRejected(this.reason);
+                    let x = onRejected(this.reason);
                     resolve(x);
-                } catch (error) {
-                    reject(error);
+                } catch (err) {
+                    reject(err);
                 }
-            } else if (this.state === 'pending') {
+            }
+
+            if (this.status === 'pending') {
                 this.onFulfilledCallbacks.push(() => {
                     try {
-                        const x = onFulfilled(this.value);
+                        let x = onFulfilled(this.value);
                         resolve(x);
-                    } catch (error) {
-                        reject(error);
+                    } catch (err) {
+                        reject(err);
                     }
                 });
                 this.onRejectedCallbacks.push(() => {
                     try {
-                        const x = onRejected(this.reason);
+                        let x = onRejected(this.reason);
                         resolve(x);
-                    } catch (error) {
-                        reject(error);
+                    } catch (err) {
+                        reject(err);
                     }
                 });
             }
         });
     }
+    catch(onRejected) {
+        return this.then(null, onRejected);
+    }
+    // Promise.all implementation
+    static all(promises) {
+        return new Promise((resolve, reject) => {
+            let results = [];
+            let completed = 0;
+
+            function processResult(index, value) {
+                results[index] = value;
+                completed++;
+                if (completed === promises.length) {
+                    resolve(results);
+                }
+            }
+
+            for (let i = 0; i < promises.length; i++) {
+                promises[i].then(value => {
+                    processResult(i, value);
+                }).catch(reject);
+            }
+        });
+    }
+
+    // Promise.race implementation
+    static race(promises) {
+        return new Promise((resolve, reject) => {
+            for (let i = 0; i < promises.length; i++) {
+                promises[i].then(resolve).catch(reject);
+            }
+        });
+    }
 }
 
-const arr = [new MyPromise((resolve, reject) => {
+const p1 = new Promise((resolve) => setTimeout(resolve, 1000, 'p1'));
+const p2 = new Promise((resolve) => setTimeout(resolve, 500, 'p2'));
+const p3 = new Promise((resolve, reject) => setTimeout(reject, 300, 'p3 rejected'));
+
+Promise.all([p1, p2]).then(results => {
+    console.log('All results:', results);
+}).catch(err => {
+    console.log('Error in all:', err);
+});
+
+// Testing Promise.race
+Promise.race([p1, p2, p3]).then(result => {
+    console.log('Race result:', result);
+}).catch(err => {
+    console.log('Race error:', err);
+});
+
+const arr = [new Promise((resolve, reject) => {
     resolve(111)
-}),new MyPromise((resolve, reject) => {
+}),new Promise((resolve, reject) => {
     resolve(222)
-}),new MyPromise((resolve, reject) => {
+}),new Promise((resolve, reject) => {
     resolve(333)
 })]
 async  function test() {
@@ -382,7 +432,7 @@ async  function test() {
 
 // += 不能与await操作
 function promise() {
-    return new MyPromise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         setTimeout(resolve(1), 1000)
     })
 }
