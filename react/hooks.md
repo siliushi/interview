@@ -72,11 +72,33 @@ ref不会触发重新渲染
 ## useState
 同一事件中进行多次更新，如果直接修改变量只会执行一次，因为不会更新已经运行代码中的状态，可以使用更新函数
 
+## useSyncExternalStore
+useSyncExternalStore是一个让你订阅外部 store 
+
+## useTransition
+在不阻塞 UI 的情况下更新状态
+
+cache 也推荐用于 记忆化数据获取，而 useMemo 只应用于计算。应该使用 memo 防止组件在其 props 未更改时重新渲染。
+
+## lazy
+const component = lazy(() => import('component'))
+在组件第一次渲染前延迟加载这个组件的代码，组件将被缓存
+
+
+## startTransition
+在不阻塞UI的情况下更新state，函数必须是同步的
+startTransition(() => {
+  setTab(nextTab);
+});
+
+
+指针事件包含鼠标事件
+
+
+forwardRef 允许组件使用 ref 将 DOM 节点暴露给父组件。
+
 useAsyncEffect
 
-
-createContext
-useContext
 
 
 # 为什么类组件的渲染方法返回 ReactNode，而函数组件返回 ReactElement？
@@ -154,3 +176,7 @@ render(): ReactNode;
     (props: P & { children?: ReactNode }, context?: any): ReactElement | null;
     // ... doesn't matter
 }
+
+
+# 副作用函数
+‌副作用函数‌是指函数在执行过程中除了返回函数值外，还对外部环境产生额外的影响。这种影响可能包括修改全局变量、修改传入的参数或其他外部数据等。
