@@ -127,8 +127,9 @@ function forEach(array, iteratee) {
 // 3、undefined、function、Symbol会丢失
 // 4、循环依赖会报错
 function deepClone(obj, map = new WeakMap()) {
+    // typeof undefined === undefined
     if(typeof obj !== 'object') return obj;
-    if(obj === null || obj === undefined) return obj;
+    if(obj === null) return obj;
     if(obj instanceof Date) return new Date(obj.getTime());
     if(obj instanceof RegExp) return new RegExp(obj);
     let temp = Array.isArray(obj) ? [] : {}
