@@ -11,6 +11,26 @@ POP 面向过程编程 Procedure Oriented Programing
 按照步骤，一步一步编程
 
 
+# navigator.clipboard
+navigator.clipboard.writeText()
+navigator.clipboard.readText().then(text => {})
+
+<!-- 粘贴 -->
+<div class="editor" contenteditable></div>
+document.addEventListener('paste', function(e) {
+    <!-- 当粘贴的是文件的时候下面才有值 -->
+    if(e.clipboardData.files.length > 0) {
+        e.preventDefault();
+        const file = e.clipboardData.files[0]
+        const reader = new FileReader();
+        reader.onload = e => {
+            const img = document.createElement('img')
+            img.src = e.target.result;
+            document.querySelector('body').appendChild(img);
+        }
+        reader.read(file)
+    }
+})
 
 # 访问器 待确认？对象的方法的,属性和方法
 第一种：传统的函数表达式，obj.get()
@@ -30,8 +50,17 @@ JS：Math.random() // 浏览器自带种子
 null等关键字不能被当成变量使用，但是undefined可以被赋值，window下面是只读的，但是局部作用域是可写的
 
 
+# 网络状态
+navigator.connection
+navigator.onLine
+window.addEventListener('online', 网络在线)
+window.addEventListener('offline', 网络不在线)
+navigator.connection.addEventListener('change', 网络变化)
+
+
 # 面向对象
 面向对象就是对具象世界的抽象表达，过程就叫面向对象设计，将设计转换成具体的类的过程叫做面向对象编程
+对象创建时、动作产生时
 
 # CSS
 - 混合占位
@@ -63,10 +92,19 @@ inset、circle、ellips、polygon
 - 动画，数字经过一段时间便成另一个数字
 - 时间函数
 
-
 CSS预编译器/前处理器  CSS后处理器
 前处理：Sass、Less、Stylus
 后处理器： cssnano(css压缩)、purgecss(去掉没用的css)、autoprefix
+
+# filter
+drop-shadow()
+blur()
+hue-rotate()
+contrast()对比度
+grayscale(1)灰白
+
+# 行盒截断样式
+box-decoration-break: clone;
 
 # pagevisibility
 当浏览器切换tab时，之前页面的复杂耗时的操作优化最少1s中执行一次

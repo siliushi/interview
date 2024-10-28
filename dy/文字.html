@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <script>
+        const cvs = document.querySelector('canvas');
+        const ctx = cvs.getContext('2d');
+        function init() {
+            cvs.width = window.innerWidth * devicePixelRatio;
+            cvs.height = window.innerHeight * devicePixelRatio;
+        }
+        init()
+        const fontSize = 10 * devicePixelRatio;
+        ctx.font = `${fontSize}px "Roboto Mono"`;
+        
+    </script>
+</body>
+</html>

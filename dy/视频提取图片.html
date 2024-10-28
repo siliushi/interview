@@ -38,7 +38,7 @@
                 // })
             })
         }
-        export function captuerFrame(videoFrame, time = 0) {
+        export function captureFrame(videoFrame, time = 0) {
             return new Promise(resolve => {
                 const video = document.createElement('video')
                 video.currentTime = time; // 视频定格在time的地方
@@ -63,7 +63,7 @@
         inp.onchange =async (e) => {
             const file = e.target.files[0]
             for(let i = 0; i < 3; i++) {
-                const frame = await captuerFrame(file, i * 1)
+                const frame = await captureFrame(file, i * 1)
                 previewImage(frame);
             }
         }

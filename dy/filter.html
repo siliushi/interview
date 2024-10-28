@@ -6,7 +6,7 @@
     <title>Document</title>
     <style>
         img {
-            position: absolute;
+            position: relative;
             top: 0px;
             left: 10px;
             width: 300px;
@@ -27,6 +27,27 @@
             box-shadow: 0 0 80px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
+        body {
+            filter: contrast(50)
+        }
+        .filterd {
+            background-color: #000;
+            color:#fff;
+            font-size: 10em;
+            filter: blur(7px);
+            transition: 1s;
+        }
+        .filterd:hover {
+            filter: blur(0);
+        }
+        .box-dir {
+            overflow: hidden;
+            background: linear-gradient(#d5e8b7, #bad6b3);
+            border: 1px solid #a1ad86;
+            padding: 0 0.5em;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+        }
     </style>
 </head>
 <body>
@@ -37,5 +58,7 @@
             123131313131313131313121
         </div>
     </div>
+    <div class="filterd">666</div>
+    <span class="box-dir">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nulla, necessitatibus optio expedita recusandae consequatur eum veniam impedit neque dicta mollitia nemo nesciunt. Ratione maxime enim quo numquam! Optio, asperiores commodi. Ipsum repellendus dolorem earum quam nemo animi cupiditate, quibusdam doloribus tenetur eaque, expedita nulla voluptatum sunt voluptates, libero accusamus iure voluptatibus quia reprehenderit. Deleniti atque impedit placeat explicabo eaque consectetur aperiam laboriosam quae nam id quaerat illum esse odio, similique vero! Mollitia impedit quas assumenda esse aut sequi amet vel. Nulla perferendis tempora ad officia ipsam perspiciatis ipsum similique labore quidem molestias incidunt, corrupti harum necessitatibus nam voluptates cumque repudiandae?</span>
 </body>
 </html>
