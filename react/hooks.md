@@ -184,3 +184,18 @@ render(): ReactNode;
 
 # state
 随着时间的推移而变化，并且无法从任何东西中计算出来。
+
+
+# ts
+const handleChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>((event) => {
+    setValue(event.currentTarget.value);
+}, [setValue])
+<input onChange="handleChange">
+
+event: React.ChangeEvent<HTMLInputElement>
+
+interface MyComponentProps {
+  style: React.CSSProperties;
+}
+
+React 组件是常规的 JavaScript 函数，但组件的名称必须以大写字母开头，否则它们将无法运行！

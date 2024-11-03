@@ -59,6 +59,17 @@ function insertSort(arr) {
     }
     return arr;
 }
+function insertSort(arr) {
+    const len = arr.length;
+    for(let i = 1; i < len; i++) {
+      for(let j = i - 1; j >= 0; j--) {
+        if(arr[j+1] < arr[j]) {
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+        }
+      }
+    }
+    return arr;
+}
 function mergeSort(arr) {
     const len = arr.length;
     if(len < 2) return arr;
@@ -161,31 +172,6 @@ console.log(getType(function a() {}))
 // const arr1 = [1,1,2]
 // console.log([...new Set(arr1)])
 
-// Function.prototype.myCall = function(context) {
-//     context = context ? context : window ||global;
-//     context.fn = this;
-//     const args = arguments.slcie(1)
-//     const result = context.fn(...args);
-//     delete context.fn;
-//     return result;
-// };
-// Function.prototype.myApply = function(context) {
-//     context = context ? context : window || global;
-//     context.fn = this;
-//     const args = arguments[1];
-//     const result = context.fn(...args);
-//     delete context.fn;
-//     return result;
-// }
-// Function.prototype.myBind = function(context) {
-//     context = context ? context : window || global;
-//     context.fn = this;
-//     const args = arguments.slcie(1)
-//     return function() {
-//         return context.fn.apply()
-//     }
-// }
-
 function bigSum(a, b) {
     let result = [];
     const len = Math.max(a.length, b.length);
@@ -233,7 +219,7 @@ function deepUnique(arr) {
 
 // 数组扁平化+深度
 // 数组去重
-// 防抖截流
+// 防抖截流+
 // call、apply、bind
 // 柯里化函数
 
@@ -257,6 +243,7 @@ function throttle(fn, delay) {
         }
     }
 }
+
 // 深拷贝
 // function deepClone(target, map = new WeakMap()) {
 //     if(typeof target !== 'object') return target;
@@ -447,6 +434,21 @@ async function test2() {
 
 
 // 柯里化函数
+function curry(fn) { 
+    if (typeof fn !== 'function') { 
+    throw new Error('curry() requires a function'); 
+    } 
+
+    return function curried(...args) { 
+    if (args.length >= fn.length) { 
+        return fn.apply(this, args); 
+    } else { 
+        return function(...args2) { 
+        return curried.apply(this, args.concat(args2)); 
+        } 
+    } 
+    };
+}
 function curry(fn) {
     // 获取函数需要的参数个数
     const arity = fn.length;
@@ -598,6 +600,8 @@ class LimitRequest {
         }
     }
 }
+
+// 判断类型
 console.log(Object.prototype.toString.call(1).slice(8, -1))
 
 // 柯里化函数：又称部分求值（Partial Evaluation），是把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数的技术。
@@ -639,6 +643,38 @@ const curriedAdd = curry(add);
 console.log(curriedAdd(1)(2)(3)); // 输出 6
 console.log(curriedAdd(1, 2)(3)); // 输出 6
 console.log(curriedAdd(1)(2, 3)); // 输出 6
+
+// 类数组转数组的3种方式
+// Array.prototype.slice.call(arrayLike);
+// return [...arrayLike];
+// Array.from(arrayLike); 
+
+
+// 数组转树
+function buildTree(items, parentId = null) {
+    let tree = [];
+    for (let i in items) {
+        if (items[i].parentId == parentId) {
+            const children = buildTree(items, items[i].id);
+            if (children.length) {
+                items[i].children = children;
+            }
+            tree.push(items[i]);
+        }
+    }
+    return tree;
+ }
+const items = [
+    { id: 1, name: 'Item 1', parentId: null },
+    { id: 2, name: 'Item 1.1', parentId: 1 },
+    { id: 3, name: 'Item 1.2', parentId: 2 },
+    { id: 4, name: 'Item 2', parentId: null },
+    { id: 5, name: 'Item 2.1', parentId: 4 },
+]
+// 使用上面的函数构建树
+const tree = buildTree(items);
+console.log(JSON.stringify(tree));
+   
 
 // 二叉树遍历
 // 深度: LDR、DLR、LRD
@@ -701,7 +737,7 @@ var levelOrder = function(root) {
          res.push(temp);
      }
      return res;
- };
+};
 
 // 继承
 // 原型继承
@@ -804,13 +840,6 @@ function longstr(s) {
 }
 console.log(longstr('abcdaouritbjhlfcldfkmdf'))
 
-
-function feibona(num) {
-    if(num === 1 || num === 2) return 1;
-    return feibona(num -1) + feibona(num -2);
-}
-console.log(feibona(3));
-
 var findMedianSortedArrays = function(nums1, nums2) {
     const res = merge(nums1, nums2);
     const len = res.length;
@@ -873,6 +902,8 @@ console.log(rgb2hex('rgb(255,255,255)'))
 // 数组扁平化
 // [...new Set()] 只能扁平化一级
 // [].flat(层级)
+let nestedArray = [1, [2, [3, [4]], 5]];  
+console.log(nestedArray.flat(Infinity));
 function flatten(arr) {
     // 第一种： reduce
     // return arr.reduce((pre, cur) => pre.concat(Array.isArray(cur) ? flatten(cur) : cur), [])
@@ -914,7 +945,7 @@ function toTousands(num) {
 console.log(toTousands(-111123123.123))
 
 // setTimeout实现setInterval
-function myInterval(fn, tiem) {
+function myInterval(fn, time) {
     let timer;
     function executor() {
         timer = setTimeout(() => {

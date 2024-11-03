@@ -1,15 +1,8 @@
 // ts
 // webpack
-// babel
-// 简历
-function myNew(constructor, ...args) {
-    let obj  = {};
-    Object.setPrototypeOf(obj, constructor.prototype)
-    const result = constructor.apply(obj, args);
-    return result instanceof Object ? result : obj;
-}
-function myCreate(obj) {
-    function F() {}
-    F.prototype = obj;
-    return new F();
-}
+// curry
+// 1. 创建一个用于存储订阅者的类
+// http发展：https://juejin.cn/post/7350520171611652147
+// 网络架构：https://www.bilibili.com/video/BV1PV4y1y7e4/
+// https://www.bilibili.com/video/BV1ULS4YHETT/
+

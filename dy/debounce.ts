@@ -1,21 +1,32 @@
 // 1、正确的重载签名和函数实现
+function throttle<A extends any[], R>(fn:(...args: A) => R, delay:number):(...args:A) => void;
+function throttle<A extends any[], R>(fn:(...args: A) => R, delay:number) {
+    let time:number = 0;
+    return function(...args:A) {
+        let now:number = Date.now();
+        if(now - time > delay) {
+            fn.apply(this, args);
+            time = now
+        }
+    }
+}
 function debounce<A extends any[], R>(
     fn: (...args: A) => R,
     duration?: number
   ): (...args: A) => void;
-  
 // 函数实现
 function debounce<A extends any[], R>(
 fn: (...args: A) => R,
 duration: number = 300 // 默认延迟时间为 300ms
 ): (...args: A) => void {
     let timeoutId: number | null;
+    // let timeoutId: NodeJS.Timeout;
     return (...args: A) => {
         if (timeoutId) {
         clearTimeout(timeoutId);
         }
         timeoutId = setTimeout(() => {
-        fn(...args);
+            fn.apply(this, args);
         }, duration);
     };
 }

@@ -15,7 +15,17 @@ react/vue源码
 函数式编程：compose/pipe
 
 
+slice(start, end) 数组或字符串
+当为负数时，加上length处理，如果计算之后end<start返回空
+substring(start, end) 字符串
+当为负数时，负数变成0，取start/end最小值为开始，最大值为结束
+substr(start, length) 字符串
+当length为负数时，返回空。当start为负数时，从右往左定位，从左往右截取
 
+
+# Mobx
+全局：makeAutoObservable
+局部：useLocalObservable
 
 
 # 面试题
@@ -344,6 +354,10 @@ getElementBy：[object HTMLCollection] 单一的ClassName tagName id
 
 # URLSearchParams
 https://blog.csdn.net/qq_72935001/article/details/131154797
+// 创建URLSearchParams对象
+const params = new URLSearchParams(window.location.search);
+// 获取参数值
+const name = params.get('name');
 
 # 禁止开发者操作网页上的DOM对象
 1、用worker隔离

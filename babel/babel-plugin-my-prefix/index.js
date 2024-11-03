@@ -15,6 +15,7 @@
 // };
 
 module.exports = function (babel) {
+    console.log(babel);
     const { types: t } = babel;
 
     return {
@@ -25,6 +26,9 @@ module.exports = function (babel) {
                 const { id } = path.node;
                 if (t.isIdentifier(id)) {
                     id.name = `${prefix}${id.name}`;
+                    // 将变量名转换为大写
+                    // const newName = id.name.toUpperCase();
+                    // path.scope.rename(id.name, newName);
                 }
             },
             // 函数名
