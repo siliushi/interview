@@ -11,6 +11,15 @@ POP 面向过程编程 Procedure Oriented Programing
 按照步骤，一步一步编程
 
 
+# 概念
+ES 概念、语法、内部方法
+runtime 运行时
+    浏览器、node.js 小程序
+web api
+
+js 
+
+
 # navigator.clipboard
 navigator.clipboard.writeText()
 navigator.clipboard.readText().then(text => {})

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React with CDN</title>
+
+  <!-- 引入 Babel 编译器 -->
+  <!-- <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/16.14.0/umd/react.production.min.js"></script> -->
+  <!-- <script
+    src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/16.14.0/umd/react-dom.production.min.js"></script> -->
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/react/17.0.0/umd/react.production.min.js" ></script>
+  <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/react-dom/17.0.0/umd/react-dom.production.min.js"></script>
+  <script src="https://lf9-cdn-tos.bytecdntp.com/cdn/expire-1-M/babel-standalone/6.26.0/babel.min.js"></script>
+
+</head>
+
+<body>
+
+  <!-- React 渲染的容器 -->
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // 引入 React 和 ReactDOM
+    const { useState, useEffect, useRef } = React;
+
+    const App = () => {
+      const refParent = useRef(null);
+      const refChild = useRef(null);
+      useEffect(() => {
+        let root = document.getElementById('root');
+        if (root) {
+          root.addEventListener('click', () => console.log('捕获: root 原生'), true);
+          root.addEventListener('click', () => console.log('冒泡: root 原生'));
+        }
+        document.addEventListener('click', () => console.log('捕获: document 原生'), true);
+        document.addEventListener('click', () => console.log('冒泡: document 原生'));
+
+        if (refParent.current) {
+          refParent.current.addEventListener('click', () => console.log('捕获: 父原生'), true);
+          refParent.current.addEventListener('click', () => console.log('冒泡: 父原生'));
+        }
+
+        if (refChild.current) {
+          refChild.current.addEventListener('click', () => console.log('捕获: 子原生'), true);
+          refChild.current.addEventListener('click', () => console.log('冒泡: 子原生'));
+        }
+      }, []);
+      const parentClick = () => console.log('冒泡: 父 React 合成');
+      const parentCaptureClick = () => console.log('捕获: 父 React 合成');
+      const childClick = () => console.log('冒泡: 子 React 合成');
+      const childCaptureClick = () => console.log('捕获: 子 React 合成');
+
+      return (
+        <div
+          ref={refParent}
+          onClick={parentClick}
+          onClickCapture={parentCaptureClick}
+        >
+          <div
+            ref={refChild}
+            onClick={childClick}
+            onClickCapture={childCaptureClick}
+          >
+            点击
+          </div>
+        </div>
+      );
+    };
+
+    // 渲染 React 组件
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+
+</body>
+
+</html>

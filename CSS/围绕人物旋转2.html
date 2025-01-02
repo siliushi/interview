@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+            body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #app {
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+
+    }
+
+    .box {
+      width: 200px;
+      height: 300px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: run 3s ease-in-out infinite;
+    }
+
+    .box div {
+      width: 200px;
+      height: 300px;
+      background-color: pink;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    /* .box>div:nth-child(1) {
+      transform: rotateY(0deg) translateZ(-200px);
+    }
+
+    .box>div:nth-child(2) {
+      transform: rotateY(90deg) translateZ(-200px);
+    }
+
+    .box>div:nth-child(3) {
+      transform: rotateY(180deg) translateZ(-200px);
+    }
+
+    .box>div:nth-child(4) {
+      transform: rotateY(270deg) translateZ(-200px);
+    }
+
+    .box>div:nth-child(5) {
+      transform: rotateY(360deg) translateZ(-200px);
+    }
+
+    .bg {
+      background-color: red;
+      width: 200px;
+      height: 300px;
+      position: absolute;
+    }
+
+    @keyframes run {
+      0% {
+        transform: rotateX(-10deg) rotateY(0deg);
+      }
+
+      50% {
+        transform: rotateX(-10deg) rotateY(180deg);
+
+      }
+
+      100% {
+        transform: rotateX(-10deg) rotateY(360deg);
+      }
+    } */
+
+    .box>div:nth-child(1) {
+      animation: animX 12s cubic-bezier(0.36, 0, 0.64, 1) -6s infinite alternate,
+        animY 12s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+        scale 24s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate;
+    }
+
+    .box>div:nth-child(2) {
+      animation: animX 12s cubic-bezier(0.36, 0, 0.64, 1) -10s infinite alternate,
+        animY 12s cubic-bezier(0.36, 0, 0.64, 1) -4s infinite alternate,
+        scale 24s cubic-bezier(0.36, 0, 0.64, 1) -4s infinite alternate;
+    }
+
+    .box>div:nth-child(3) {
+      animation: animX 12s cubic-bezier(0.36, 0, 0.64, 1) -14s infinite alternate,
+        animY 12s cubic-bezier(0.36, 0, 0.64, 1) -8s infinite alternate,
+        scale 24s cubic-bezier(0.36, 0, 0.64, 1) -8s infinite alternate;
+    }
+
+    .box>div:nth-child(4) {
+      animation: animX 12s cubic-bezier(0.36, 0, 0.64, 1) -18s infinite alternate,
+        animY 12s cubic-bezier(0.36, 0, 0.64, 1) -12s infinite alternate,
+        scale 24s cubic-bezier(0.36, 0, 0.64, 1) -12s infinite alternate;
+
+    }
+
+    .box>div:nth-child(5) {
+      animation: animX 12s cubic-bezier(0.36, 0, 0.64, 1) -22s infinite alternate,
+        animY 12s cubic-bezier(0.36, 0, 0.64, 1) -16s infinite alternate,
+        scale 24s cubic-bezier(0.36, 0, 0.64, 1) -16s infinite alternate;
+    }
+
+    @keyframes scale {
+      0% {
+        transform: scale(0.5);
+        opacity: 0.5;
+      }
+
+      50% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(0.5);
+        opacity: 0.5;
+      }
+
+    }
+
+    @keyframes animX {
+      0% {
+        left: -4%;
+      }
+
+      100% {
+        left: 96%;
+      }
+    }
+
+    @keyframes animY {
+      0% {
+        top: -4%;
+      }
+
+      100% {
+        top: 96%;
+      }
+    }
+    .container{
+    transform-style: preserve-3d;
+
+}
+.img{
+    width: 200px;
+    height: 300px;
+    position: absolute;
+}
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="container" >
+          <div class="box">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <div class="img">
+              <img src="https://img.tukuppt.com/png_preview/00/08/56/3rdkq51nu2.jpg!/fw/780" alt="">
+          </div>
+        </div>
+      </div>
+  
+</body>
+</html>

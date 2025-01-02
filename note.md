@@ -23,6 +23,9 @@ substr(start, length) 字符串
 当length为负数时，返回空。当start为负数时，从右往左定位，从左往右截取
 
 
+http发展：https://juejin.cn/post/7350520171611652147
+
+
 # Mobx
 全局：makeAutoObservable
 局部：useLocalObservable
@@ -141,7 +144,9 @@ ReferenceError SyanxError TypeError URIError EvalError RangeError
 相等：==,!=
 逻辑与：&&
 逻辑或：||
+三目运算：?:-
 最后：=,*=,/=,%=,+=,-=
+
 
 # 取整数和小数
 ## 取整数
