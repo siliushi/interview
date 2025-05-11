@@ -25,6 +25,24 @@
             ev.target.appendChild(document.getElementById(data));
         }
     </script>
+    <style>
+        .list-item {
+            background-color: lightblue;
+            height: 20px;
+            line-height: 20px;
+            color: #fff;
+            font-size: 18px;
+            cursor: move;
+            user-select: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .list-item.moving {
+            background-color: #ccc;
+            color: transparent;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,6 +53,45 @@
     <br>
     <img id="drag1" src="./dy/public/tp.png" draggable="true" ondragstart="drag(event)" width="336" height="69">
 
+    <div class="list">
+        <div draggable="true" class="list-item">1</div>
+        <div draggable="true" class="list-item">2</div>
+        <div draggable="true" class="list-item">3</div>
+        <div draggable="true" class="list-item">4</div>
+        <div draggable="true" class="list-item">5</div>
+    </div>
+    <script>
+        const list = document.querySelector('.list');
+        let source
+        list.ondragstart = e => {
+            source = e.target;
+            setTimeout(() => {
+                source.classList.add('moving')
+            }, 0)
+        }
+        list.ondragover = e => {
+            e.preventDefault()
+        }
+        list.ondragenter = (e) => {
+            e.preventDefault();
+            if (!source) return;
+            const target = e.target;
+            if (target === list || target === source) {
+                return;
+            }
+            const sourceIndex = Array.from(list.children).indexOf(source)
+            const targetIndex = Array.from(list.children).indexOf(target)
+            if (sourceIndex < targetIndex) {
+                list.insertBefore(target, source);
+            } else {
+                list.insertBefore(source, target);
+            }
+        }
+        list.ondragend = e => {
+            source.classList.remove('moving')
+            source = null;
+        }
+    </script>
 </body>
 
 </html>

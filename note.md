@@ -1,7 +1,19 @@
+软考+鸿蒙学习
+
+prototype 是函数的，指向构造函数
+\_\_proto\_\_ 是对象的，
+对象用 **proto** 指回构造函数的 prototype。
+
 React 源码
 实现 keep-alive
 
+MVC、MVP、MVVM、MVI
+
 Vue3
+
+0 八进制
+0x 十六进制
+11..toString(2)
 
 源码+视频
 URL 组成：
@@ -16,6 +28,19 @@ react/vue 源码
 class 方法前面加 static 和不加主要区别在于方法的调用方式 和 作用范围。
 static 归属于 类本身（ClassName），而不是实例（instance），不能通过实例调用，只能通过类名直接调用。
 非 static 归属实例，必须通过实例调用，不能通过类名调用
+
+发布订阅与观察者模式区别：
+具有相似的目标：建立对象之间的通信机制，但它们在架构和使用方式上存在关键区别。
+发布订阅
+✅ 有“消息中间件”/事件中心（Event Bus）
+✅ 发布者（Publisher）和订阅者（Subscriber）不直接通信
+✅ 松耦合（Decoupled）
+✅ 支持多个订阅者接收相同消息
+观察者
+✅ 没有“事件中心”，直接由被观察对象（Subject）管理观察者
+✅ 观察者（Observer）直接订阅被观察对象（Subject）
+✅ 耦合度较高（Coupled）
+✅ 每个 Subject 维护自己的 Observer 列表
 
 slice(start, end) 数组或字符串
 当为负数时，加上 length 处理，如果计算之后 end<start 返回空
@@ -41,7 +66,7 @@ console.log(a.x)
 console.log(b.x)
 console.log(a)
 
-第二题：a++，对象键顺序：数字字符 symbol
+第二题：a++，对象键顺序：数字、字符 symbol
 const obj = {
 a: 0,
 };
@@ -396,3 +421,85 @@ navigator.connection
 window.addEventListener('online', function() {})
 window.addEventListener('offline', function() {})
 navigator.connection.addEventListener('change', function() {})
+
+# 循环时间对比
+
+for（时间短）≈ while < < for of < forEach < map
+
+# 字符串与数字占用内存对比
+
+1. 字符串（a）
+   字符串在 JavaScript 中是一个字符序列，每个字符通常占用 2 个字节（16 位），因为 JavaScript 的字符串是基于 UTF-16 编码的。
+   例如，字符串 "a" 占用 2 个字节（1 个字符），如果是 "abc"，则占用 6 个字节（3 个字符）。
+2. 数字（1）
+   在 JavaScript 中，所有数字（包括整数和浮点数）都使用 64 位浮动点表示（即 8 个字节），遵循 IEEE 754 标准。
+   因此，数字 1 占用 8 个字节，无论它是整数还是浮动数。
+   比较：
+   字符串 a：通常占用 2 个字节。
+   数字 1：占用 8 个字节。
+
+# https 原理（握手过程）
+
+# http1 和 http2 有什么区别，http2 优势
+
+# http 常见返回码及其含义
+
+# http 缓存控制，协商缓存相关的几个头部的之间的优先级关系
+
+# 什么是 cors？为什么要用 cors？
+
+# xss 是什么？如何防范？具体例子，jsonp 如何防止 xss？
+
+# cookie 有什么用？存在什么问题？如何解决？crsf 如何防范？
+
+# dns 寻址过程？简述 cdn 原理
+
+# 谈下 vue 和 react 的差异
+
+# 谈下对 react hook 的理解
+
+# 谈下对 typescript 的理解
+
+# 谈下对前端微服务的理解，有什么好处，有什么坏处
+
+# 谈下对 serverless 架构的理解
+
+# 谈下 react fiber 的理解
+
+# 浏览器输入 url 后流程，尽可能详细
+
+# 前端适配方案
+
+方案 | 核心思路 | 使用场景 | 优点 | 缺点
+媒体查询（Media Query） | 用 CSS 判断设备宽度等条件，切换样式 | 响应式布局 | 简单、灵活、广泛兼容 | 样式重复多、维护成本高
+rem + flexible.js | 根节点 font-size 动态设置，实现等比缩放 | 移动端 | 单位统一、兼容主流机型 | 依赖 JS 动态设置，部分布局不精准
+vw/vh 视口单位 | 页面元素按视口宽度百分比设置 | 移动端、H5 活动页 | 原生支持、代码简洁 | 部分小屏设备精度问题
+自适应布局 + 百分比 + 弹性盒（flex/grid） | 使用布局系统自适应 | 移动/PC 混合开发 | 弹性强、可组合 | 小屏适配细节多
+响应式框架（如 Tailwind、Bootstrap） | 使用内置断点类名切换布局 | PC + 移动混合站点 | 快速上手，社区活跃 | 灵活性低，依赖框架设计
+
+# 谈下 mobx 和 redux 的差异和选择
+
+中小型选 mobx
+大型选 redux
+
+# 如果让你从零主导一个项目，描述下整体思路，前端后端，开发到部署
+
+# 如果让你搭建一套前端监控方案，具体思路
+
+Navigator.sendBeacon
+
+# 如何定位内存泄露
+
+chrome Dev
+Memory：snapshot、timeline、、sample、detached
+Performance：call tree
+
+# 随机字符
+
+Math.random().toString(16).slice(2,8).padEnd(6, '0')
+最长 16 位
+
+# 只有一个地方引用传递
+
+export let a = 1;
+import {a} from '' // 改变 a 会影响上面
